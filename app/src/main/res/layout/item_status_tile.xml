@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One tile in Home's grid: how many batches have one status. A white card (on the pine band
+     since 2026-10-23, B1) with the status icon in a circle of the status's label colors, the count
+     in the status's accent color, a small gray arrow, and the status word. StatusTile sets the
+     icon, the colors (StatusLook), the count, and the word, and gives the whole tile one spoken
+     label, for example "Date passed: 1 batch". The parts inside are not read on their own. A tap
+     opens Inventory with only those batches; the arrow shows that the tile can be tapped.
+     item_action_tile.xml has the same parts. The word is the status's own word, the same as on
+     Inventory's Status chips ("Near date"). Since 2026-10-23 the same tile, without the arrow and
+     not tappable, is the header of the list it opens (Inventory's status band). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:background="@drawable/bg_tile"
+    android:focusable="true"
+    android:importantForAccessibility="yes"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:importantForAccessibility="noHideDescendants"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/tile_icon"
+            android:layout_width="@dimen/category_icon_size"
+            android:layout_height="@dimen/category_icon_size"
+            android:background="@drawable/bg_circle"
+            android:padding="@dimen/category_icon_padding"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_clock" />
+
+        <TextView
+            android:id="@+id/tile_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:textAppearance="?attr/textAppearanceHeadlineMedium"
+            tools:text="2" />
+
+        <ImageView
+            android:id="@+id/tile_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="4dp"
+            android:src="@drawable/ic_chevron_right"
+            app:tint="?attr/colorOutline"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tile_word"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_small"
+        android:importantForAccessibility="no"
+        android:textAppearance="?attr/textAppearanceTitleSmall"
+        android:textColor="?attr/colorOnSurface"
+        tools:text="@string/status_near_date" />
+</LinearLayout>

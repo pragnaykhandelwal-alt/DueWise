@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+   Used on Android 11 (API 30) and lower. Android 12+ uses data_extraction_rules.xml.
+   android:allowBackup="false" already turns backup off; these rules are a second
+   safeguard so household data never leaves the phone.
+   See https://developer.android.com/identity/data/autobackup
+-->
+<full-backup-content>
+    <exclude domain="root" path="." />
+    <exclude domain="external" path="." />
+</full-backup-content>

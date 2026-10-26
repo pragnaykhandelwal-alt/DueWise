@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ReadyShelf keeps all household data on the phone and works offline.
+         tools:node="remove" deletes the INTERNET permission even if a library asks for it. -->
+    <uses-permission
+        android:name="android.permission.INTERNET"
+        tools:node="remove" />
+
+    <!-- Label photos (photo entry) use ReadyShelf's own camera screen (CameraX). The household is
+         asked for the camera only on the Label photos screen, and everything else works without
+         it. The photos go into ReadyShelf's private cache folder and are deleted after reading. -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- A camera is not required: phones without one can still install ReadyShelf and fill in
+         the form by hand, or choose a saved photo. (The CAMERA permission would otherwise make
+         a back camera with autofocus required.) -->
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.flash"
+        android:required="false" />
+
+    <!-- The daily reminder. On Android 13 and newer the household is asked for it only when they
+         turn reminders on or tap "Show reminder now". Everything else works without it. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- WorkManager (the daily reminder check) adds four permissions. ReadyShelf keeps WAKE_LOCK
+         (to finish a check) and RECEIVE_BOOT_COMPLETED (to schedule the check again after the phone
+         restarts). These two are removed, because the check uses no network condition and never
+         runs as a foreground service (see TOOLCHAIN.md). CameraX's media3-common library also asks
+         for ACCESS_NETWORK_STATE; this removes it too. -->
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.FOREGROUND_SERVICE"
+        tools:node="remove" />
+
+    <!-- allowBackup="false" turns off cloud backup. The two rule files in res/xml also
+         exclude all app data from backup and from phone-to-phone transfer. -->
+    <!-- android:name: ReadyShelfApp runs first and makes the shared AppContainer. -->
+    <application
+        android:name=".ReadyShelfApp"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ReadyShelf">
+        <!-- Each screen has its own label; TalkBack reads it when the screen opens.
+             (Home uses the app's label.)
+             adjustResize lets screens with text fields make room for the keyboard. -->
+        <activity
+            android:name=".ui.home.HomeActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.inventory.InventoryActivity"
+            android:exported="false"
+            android:label="@string/title_inventory"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.batch.BatchEditActivity"
+            android:exported="false"
+            android:label="@string/title_add_batch"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.batch.BatchDetailsActivity"
+            android:exported="false"
+            android:label="@string/title_batch_details" />
+        <activity
+            android:name=".ui.stock.StockActionActivity"
+            android:exported="false"
+            android:label="@string/title_stock_change"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.swap.SwapReviewActivity"
+            android:exported="false"
+            android:label="@string/title_swap_review" />
+        <activity
+            android:name=".ui.purchase.PurchaseListActivity"
+            android:exported="false"
+            android:label="@string/title_purchase_list" />
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_settings"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.photo.LabelPhotosActivity"
+            android:exported="false"
+            android:label="@string/title_label_photos" />
+
+        <!-- The home-screen widget "Review list". The home screen sends it updates, so it must be
+             exported. It needs no permission and shows only generic words, never item names; since
+             2026-10-23 one number (Home's tiles added up). Never rename the class: placed widgets
+             are tied to its name. -->
+        <receiver
+            android:name=".widget.ReviewWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_review_info" />
+        </receiver>
+    </application>
+
+</manifest>

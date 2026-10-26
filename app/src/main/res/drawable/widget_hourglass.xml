@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The hourglass from the student's DueWise logo (an AI draft the student edited; see AI-USE.md),
+     for the home-screen widget. It is the logo kit's duewise-mark-small-reversed.svg: the heavier
+     version that the kit asks for below 48 px, in the colors for dark backgrounds (off-white
+     #EEF2F0, brass #B8914F). Claude Code converted it into a vector without changing any shape
+     or color. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="20dp"
+    android:viewportWidth="1012.43"
+    android:viewportHeight="1012.43">
+    <group
+        android:translateX="506.21"
+        android:translateY="506.21">
+        <path
+            android:fillColor="#FFB8914F"
+            android:pathData="M-189.14 -187.35C-157.58 -89.79 -87.28 -20.15 0 0C87.28 20.15 181 -11.62 252.12 -85.48ZM-349.31 268.3C-338.45 221.26 -319.46 176.66 -293.61 137.48Q-13.5 58.46 203.63 252.27C209.69 298.82 207.2 347.23 196.34 394.27Z" />
+        <path
+            android:strokeColor="#FFEEF2F0"
+            android:strokeWidth="56"
+            android:pathData="M-196.34 -394.27C-238.58 -211.31 -150.68 -34.79 0 0C150.68 34.79 307.07 -85.34 349.31 -268.3M-349.31 268.3C-307.07 85.34 -150.68 -34.79 0 0C150.68 34.79 238.58 211.31 196.34 394.27" />
+        <path
+            android:strokeColor="#FFEEF2F0"
+            android:strokeWidth="80"
+            android:pathData="M-293.78 -416.77L446.74 -245.8M-446.74 245.8L293.78 416.77" />
+    </group>
+</vector>

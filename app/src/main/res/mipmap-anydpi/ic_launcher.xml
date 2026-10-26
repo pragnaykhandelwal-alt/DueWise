@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The DueWise app icon: the tilted hourglass on porcelain, from the student's logo kit
+     (an AI draft the student edited; see AI-USE.md). The monochrome layer is the one-color
+     hourglass that Android 13 and newer use for themed icons. -->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ic_launcher_background" />
+    <foreground android:drawable="@mipmap/ic_launcher_foreground" />
+    <monochrome android:drawable="@mipmap/ic_launcher_monochrome" />
+</adaptive-icon>

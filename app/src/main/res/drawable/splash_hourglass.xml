@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The hourglass from the student's DueWise logo (an AI draft the student edited; see AI-USE.md),
+     for the start-up screen on Android 12 and newer (values-v31/themes.xml). It is the logo kit's
+     duewise-mark-reversed.svg. Since 2026-10-22, when the app became light, it has the colors of
+     the kit's version for light backgrounds (pine #1F3B34, brass #B8914F); until then it had the
+     colors for dark backgrounds (off-white #EEF2F0, brass). Claude Code converted it into a vector
+     without changing any shape. Android
+     shows a start-up icon 288 dp wide but only the round middle, 192 dp across, so the viewport
+     is larger than the mark and the whole hourglass fits inside that circle. Lint's 200 dp limit
+     for vector icons doesn't apply: Android asks for 288 dp here, and draws it once at start-up. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="288dp"
+    android:height="288dp"
+    android:viewportWidth="1640"
+    android:viewportHeight="1640"
+    tools:ignore="VectorRaster">
+    <group
+        android:translateX="820"
+        android:translateY="820">
+        <path
+            android:fillColor="#FFB8914F"
+            android:pathData="M-189.14 -187.35C-157.58 -89.79 -87.28 -20.15 0 0C87.28 20.15 181 -11.62 252.12 -85.48ZM-349.31 268.3C-338.45 221.26 -319.46 176.66 -293.61 137.48Q-13.5 58.46 203.63 252.27C209.69 298.82 207.2 347.23 196.34 394.27Z" />
+        <path
+            android:strokeColor="#FFB8914F"
+            android:strokeWidth="16"
+            android:pathData="M0 0L-29.24 126.67" />
+        <path
+            android:strokeColor="#FF1F3B34"
+            android:strokeWidth="25"
+            android:pathData="M-196.34 -394.27C-238.58 -211.31 -150.68 -34.79 0 0C150.68 34.79 307.07 -85.34 349.31 -268.3M-349.31 268.3C-307.07 85.34 -150.68 -34.79 0 0C150.68 34.79 238.58 211.31 196.34 394.27" />
+        <path
+            android:strokeColor="#FF1F3B34"
+            android:strokeWidth="45"
+            android:pathData="M-293.78 -416.77L446.74 -245.8M-446.74 245.8L293.78 416.77" />
+    </group>
+</vector>

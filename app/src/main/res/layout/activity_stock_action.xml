@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.stock.StockActionActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationContentDescription="@string/navigate_back"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:title="@string/title_stock_change" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/stock_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/screen_padding">
+
+            <!-- "This batch no longer exists", "archived", or "0 left". -->
+            <TextView
+                android:id="@+id/stock_message"
+                style="@style/ReadyShelf.Notice.Error"
+                android:layout_marginTop="0dp"
+                android:visibility="gone"
+                tools:text="@string/details_missing"
+                tools:visibility="visible" />
+
+            <!-- Hidden until the batch has loaded (StockActionActivity), so the screen never shows
+                 a blank form with an empty "All" choice. -->
+            <LinearLayout
+                android:id="@+id/stock_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/stock_name"
+                    style="@style/ReadyShelf.Body"
+                    android:accessibilityHeading="true"
+                    android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                    tools:targetApi="28"
+                    tools:text="Canned beans" />
+
+                <TextView
+                    android:id="@+id/stock_product_details"
+                    style="@style/ReadyShelf.Body"
+                    android:visibility="gone"
+                    tools:text="Low sodium · 15 oz"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/stock_sample"
+                    style="@style/ReadyShelf.SampleTag"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/stock_amount_line"
+                    style="@style/ReadyShelf.Body"
+                    android:layout_marginTop="@dimen/space_small"
+                    tools:text="4 cans in Pantry" />
+
+                <TextView
+                    android:id="@+id/stock_date_line"
+                    style="@style/ReadyShelf.Body"
+                    tools:text="Best by: 26 Oct 2026" />
+
+                <!-- Medicine: this records stock only. -->
+                <TextView
+                    android:id="@+id/stock_medicine_note"
+                    style="@style/ReadyShelf.Notice"
+                    android:text="@string/stock_medicine_note"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <!-- "Nothing was saved, because...": shown on either step. -->
+                <TextView
+                    android:id="@+id/stock_error"
+                    style="@style/ReadyShelf.Notice.Error"
+                    android:accessibilityLiveRegion="polite"
+                    android:visibility="gone"
+                    tools:text="@string/error_batch_changed"
+                    tools:visibility="visible" />
+
+                <!-- Step 1: how much, and where to (Move, Record used, Record discarded). -->
+                <LinearLayout
+                    android:id="@+id/stock_amount_step"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/ReadyShelf.FieldLabel"
+                        android:text="@string/stock_how_much" />
+
+                    <RadioGroup
+                        android:id="@+id/stock_all_or_some"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/stock_all"
+                            style="@style/ReadyShelf.Choice"
+                            android:checked="true"
+                            tools:text="All (4 cans)" />
+
+                        <RadioButton
+                            android:id="@+id/stock_some"
+                            style="@style/ReadyShelf.Choice"
+                            android:text="@string/stock_some" />
+                    </RadioGroup>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/stock_amount_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:hint="@string/stock_amount"
+                        android:visibility="gone"
+                        app:helperTextEnabled="true"
+                        tools:helperText="A whole number from 1 to 4"
+                        tools:visibility="visible">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/stock_amount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:maxLength="4" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:id="@+id/stock_move_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <TextView
+                            style="@style/ReadyShelf.FieldLabel"
+                            android:labelFor="@id/stock_destination"
+                            android:text="@string/stock_destination" />
+
+                        <Spinner
+                            android:id="@+id/stock_destination"
+                            style="@style/ReadyShelf.Spinner" />
+
+                        <TextView
+                            android:id="@+id/stock_destination_error"
+                            style="@style/ReadyShelf.FieldError"
+                            tools:text="Choose a location other than Pantry."
+                            tools:visibility="visible" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Step 2: review. Nothing changes until "Confirm" (in the bar at the bottom). -->
+                <LinearLayout
+                    android:id="@+id/stock_review_step"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <TextView
+                        style="@style/ReadyShelf.SectionHeading"
+                        android:accessibilityHeading="true"
+                        android:text="@string/stock_review_heading"
+                        tools:targetApi="28" />
+
+                    <TextView
+                        android:id="@+id/stock_review_text"
+                        style="@style/ReadyShelf.Body"
+                        tools:text="• Record as used: 2 cans of Canned beans.\n• This batch: 4 cans before, 2 cans after." />
+
+                    <TextView
+                        android:id="@+id/stock_kit_warning"
+                        style="@style/ReadyShelf.Notice.Warning"
+                        android:layout_marginTop="@dimen/space_medium"
+                        android:visibility="gone"
+                        tools:text="Canned beans in Earthquake kit: 6 cans before, 4 cans after. Replacement may be needed. ReadyShelf does not check whether this kit meets a supply target."
+                        tools:visibility="visible" />
+
+                    <Button
+                        android:id="@+id/stock_back"
+                        style="@style/ReadyShelf.Button.Outlined"
+                        android:layout_marginTop="@dimen/space_large"
+                        android:text="@string/stock_back" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- The step's main button, always in view (since 2026-10-19, the student's choice):
+         "Review" on the amount step, "Confirm" on the review. Hidden until the batch has loaded,
+         and when the screen can only show a message (StockActionActivity). -->
+    <LinearLayout
+        android:id="@+id/bottom_actions"
+        style="@style/ReadyShelf.BottomBar"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <Button
+            android:id="@+id/stock_review_button"
+            style="@style/ReadyShelf.BottomBarButton"
+            android:text="@string/stock_review_button" />
+
+        <Button
+            android:id="@+id/stock_confirm"
+            style="@style/ReadyShelf.BottomBarButton"
+            android:text="@string/stock_confirm"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </LinearLayout>
+</LinearLayout>

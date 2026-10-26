@@ -1,0 +1,706 @@
+<resources>
+    <string name="app_name">DueWise</string>
+
+    <!-- Screen titles. TalkBack reads them when a screen opens. -->
+    <string name="title_inventory">Inventory</string>
+    <string name="title_add_batch">Add item</string>
+    <string name="title_edit_batch">Edit batch</string>
+    <string name="title_batch_details">Batch details</string>
+    <!-- "Purchase list" until 2026-10-24, when it got its Renewal section (the student's name). -->
+    <string name="title_purchase_list">Purchase/Renewal list</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_stock_change">Change stock</string>
+    <string name="title_move">Move batch</string>
+    <string name="title_record_used">Done</string>
+    <string name="title_record_discarded">Record discarded</string>
+    <string name="title_archive">Archive batch</string>
+    <string name="title_swap_review">Review swap</string>
+    <string name="title_record_purchase">Record bought item</string>
+    <string name="title_label_photos">Label photos</string>
+
+    <!-- Shared -->
+    <string name="navigate_back">Back</string>
+    <!-- The home icon in Inventory's top bar, in place of the back arrow, when a status tile on
+         Home opened it (since 2026-10-22, the student's choice). -->
+    <string name="navigate_home">Home</string>
+    <string name="sample_tag">Sample item</string>
+    <string name="archived_tag">Archived</string>
+    <!-- Home, only for sample items that an earlier version added to the household's own records.
+         Until 2026-10-22 it ended with "Remove them in Settings."; Settings' Sample data card,
+         with that button, was removed that day, and the items stay. -->
+    <string name="sample_banner">Your records include old sample items, marked “Sample item”.</string>
+    <!-- Under the toolbar of every screen while the separate sample data is open, with "Close
+         sample data" under it (SampleDataClose). -->
+    <string name="sample_data_label">Sample data: made-up items, apart from your records.</string>
+    <!-- The button that closes sample data in "Close sample data?" (SampleDataClose). -->
+    <string name="sample_data_close_confirm">Close</string>
+    <string name="rules_not_ready_date">Not available yet: the date rules are not finished.</string>
+    <string name="rules_not_ready_swaps">Not available yet: the swap rules are not finished.</string>
+    <string name="rules_not_ready_purchase">Not available yet: the swap rules are not finished.</string>
+    <!-- Instead of a list or a status when the rules stopped with an error. The error's details
+         go only to the phone's log (the ViewModels log them), never to the screen. -->
+    <string name="rules_error">Can\'t show this: the rules stopped with an error. Your records didn\'t change.</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- How a batch is described -->
+    <string name="amount_with_unit">%1$d %2$s</string>
+    <string name="amount_no_unit">%1$d (no unit entered)</string>
+    <string name="amount_in_place">%1$s in %2$s</string>
+    <string name="labeled_date">%1$s: %2$s</string>
+    <string name="labeled_incomplete_date">%1$s: “%2$s” (incomplete date)</string>
+    <string name="no_date_entered">No date entered</string>
+    <string name="date_review_unconfirmed">Date needs review: not confirmed yet.</string>
+    <string name="date_review_incomplete">Date needs review: only part of a date.</string>
+    <string name="date_review_missing">Date needs review: no date.</string>
+    <string name="status_line">Status: %1$s</string>
+    <string name="batch_summary">%1$s, %2$s, %3$s</string>
+
+    <!-- Products: "Canned beans — Low sodium · 15 oz · unit: cans" -->
+    <string name="product_choice">%1$s — %2$s</string>
+    <string name="product_no_variant">no variant</string>
+    <string name="product_no_size">no package size</string>
+    <string name="product_unit">unit: %1$s</string>
+    <string name="product_no_unit">no unit entered</string>
+    <string name="product_facts">Variant: %1$s. Package size: %2$s. Unit: %3$s.</string>
+    <string name="product_value_none">none</string>
+
+    <!-- Categories -->
+    <string name="category_food">Food</string>
+    <string name="category_water">Water</string>
+    <string name="category_medicine">Medicine</string>
+    <string name="category_first_aid_supply">First aid supplies</string>
+    <string name="category_cosmetic">Cosmetics</string>
+    <string name="category_document">Documents</string>
+    <string name="category_subscription">Subscriptions</string>
+    <string name="category_other">Other</string>
+
+    <!-- Location types -->
+    <string name="location_type_pantry">Pantry</string>
+    <string name="location_type_emergency_kit">Emergency kit</string>
+    <string name="location_type_first_aid">First aid</string>
+    <string name="location_type_other">Other</string>
+
+    <!-- Date labels: the kind of date printed on the package -->
+    <string name="date_label_best_by">Best by</string>
+    <string name="date_label_use_by">Use by</string>
+    <string name="date_label_expires">Expires</string>
+    <string name="date_label_other">Other date</string>
+
+    <!-- Date statuses (decided by the student's DatePolicy) -->
+    <string name="status_needs_review">Date needs review</string>
+    <string name="status_past_date">Date passed</string>
+    <string name="status_today">Date is today</string>
+    <string name="status_near_date">Near date</string>
+    <string name="status_later">Later date</string>
+
+    <!-- Swap plan reasons (the student's RotationPlanner chooses them). Never a safety claim. -->
+    <string name="plan_reason_category_not_swapped">Medicine, documents, and subscriptions are never swapped.</string>
+    <string name="plan_reason_date_missing_or_incomplete">No complete date is recorded.</string>
+    <string name="plan_reason_date_not_confirmed">Date and label type not confirmed.</string>
+    <string name="plan_reason_label_type_not_known">The swap rules don\'t accept this label type.</string>
+    <string name="plan_reason_date_today_or_passed">The date is today or has passed. No pantry use is recommended.</string>
+    <!-- The same reason for an expired batch outside a kit (since 2026-10-22): it is never moved
+         to the pantry, so the pantry sentence doesn't apply. -->
+    <string name="plan_reason_date_today_or_passed_outside_kit">The date is today or has passed.</string>
+    <string name="plan_reason_not_near_date">The date is not near yet.</string>
+    <string name="plan_reason_swap_proposed">Swaps are proposed for all of it.</string>
+    <string name="plan_reason_partly_replaced">Pantry batches cover only part of it.</string>
+    <string name="plan_reason_no_replacement">No pantry batch qualifies as a replacement.</string>
+    <!-- The food section's texts (food type, food class, condition answers) were removed on
+         2026-10-22 with the section itself (the student's choice). -->
+
+    <!-- Home -->
+    <string name="home_add_batch">Add item</string>
+    <string name="home_inventory">Inventory</string>
+    <string name="home_purchase_list">Purchase/Renewal list</string>
+    <string name="home_settings">Settings</string>
+    <!-- "+ Add batch": the "+" and the words of Home's last tile (since 2026-10-23; until then
+         a floating button, which showed only its "+" with large text). -->
+    <string name="home_empty">No items yet. Tap “+ Add item” to start.</string>
+    <!-- The note under Home's tiles when the household has batches and none needs review. -->
+    <string name="home_needs_review_empty">Nothing needs review right now.</string>
+    <string name="home_swaps">Recommended swaps</string>
+    <string name="home_swaps_empty">No swaps to suggest right now.</string>
+    <!-- Under "More about this" above the swap cards. There is no note above them since
+         2026-10-21 (the student's choice); Review swap keeps the planning-choice sentence. It
+         never points to a replacement for medicine (medicine is never on the Purchase/Renewal
+         list). -->
+    <string name="home_swaps_more">Never swapped: medicine, documents, subscriptions, and kit items dated today or earlier. Kit items to buy again are on the Purchase/Renewal list.</string>
+    <!-- What TalkBack reads for a status tile on Home, and (since 2026-10-23) for the same tile as
+         the header of the list it opens in Inventory. %1$s is the tile's status word, for example
+         "Date passed"; %2$d is how many batches have it. -->
+    <plurals name="home_attention_line">
+        <item quantity="one">%1$s: %2$d batch</item>
+        <item quantity="other">%1$s: %2$d batches</item>
+    </plurals>
+    <!-- What a tap on a status tile does. TalkBack says "Double-tap to" and then these words. -->
+    <string name="home_tile_action">show these batches in Inventory</string>
+
+    <!-- Swaps. The kit batch is always "for review": DueWise never says that an item is safe. -->
+    <string name="swap_move_out">Move to pantry for review: %1$s (%2$s) from %3$s to %4$s.</string>
+    <string name="swap_move_in">Into %1$s in its place: %2$s (%3$s) from %4$s.</string>
+    <!-- The swap picture's lines under each move: the amount and the date as entered. The kit's
+         line ends with swap_diagram_for_review, which SwapDiagram shows in dark brass. -->
+    <string name="swap_diagram_details_for_review">%1$s · %2$s · %3$s</string>
+    <string name="swap_diagram_for_review">for review</string>
+    <string name="swap_diagram_details">%1$s · %2$s</string>
+    <!-- The "After the swap" table: the product's total in each place, before and after. -->
+    <string name="swap_totals_place">Place</string>
+    <string name="swap_totals_before">Before</string>
+    <string name="swap_totals_after">After</string>
+    <string name="swap_review_button">Review swap</string>
+    <string name="swap_review_button_description">Review swap: %1$s, %2$s</string>
+    <string name="swap_each_way">Amount that moves each way: %1$s</string>
+    <string name="swap_moves_heading">The two moves</string>
+    <!-- A safety sentence: it stays in view. Since 2026-10-22 the swap rules use no condition
+         answers, so it says that DueWise checks neither item. -->
+    <string name="swap_for_review_note">“For review” means you check this item yourself. DueWise doesn\'t check either item.</string>
+    <string name="swap_why_heading">Why the replacement qualifies</string>
+    <!-- In view above the folded rules (swap_why_rules, under "More about this"). -->
+    <string name="swap_why_summary">Same product, with a later date at least your replacement days away.</string>
+    <!-- %1$s and %2$s are day counts from the day_count plural, for example "30 days". -->
+    <string name="swap_why_rules">Same product and unit. The replacement is dated later, at least %2$s from today (your replacement days). The kit batch is dated 1 day to %1$s from today (your near-date days). Both have a confirmed full date: Best by, Use by, or Expires. Medicine, documents, and subscriptions are never swapped.</string>
+    <plurals name="day_count">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+    <string name="swap_why_planning">Replacement days are a planning choice, not a safety guarantee.</string>
+    <string name="swap_facts_heading">What you recorded</string>
+    <string name="swap_fact_today">Today: %1$s</string>
+    <string name="swap_fact_product">Product of both batches: %1$s.</string>
+    <string name="swap_fact_kit">Kit batch: %1$s, in %2$s. %3$s</string>
+    <string name="swap_fact_pantry">Pantry batch: %1$s, in %2$s. %3$s</string>
+    <string name="swap_fact_confirmed">Date and label type confirmed.</string>
+    <string name="swap_fact_not_confirmed">Date and label type not confirmed.</string>
+    <string name="swap_after_heading">After the swap</string>
+    <string name="swap_after_in">In %1$s:</string>
+    <string name="swap_after_stays">Stays: %1$s (%2$s).</string>
+    <string name="swap_after_none_stays">Nothing of it stays here.</string>
+    <string name="swap_after_leaves_for_review">Leaves for %1$s, for review: %2$s (%3$s).</string>
+    <string name="swap_after_leaves">Leaves for %1$s: %2$s (%3$s).</string>
+    <string name="swap_after_arrives">Arrives from %1$s: %2$s (%3$s).</string>
+    <string name="swap_after_arrives_for_review">Arrives from %1$s, for review: %2$s (%3$s).</string>
+    <string name="swap_after_new_batch">If only part of a batch moves, that part becomes its own batch.</string>
+    <string name="swap_confirm_note">Both moves are saved together. Nothing changes until you confirm.</string>
+    <string name="swap_confirm">Confirm swap</string>
+    <string name="swap_saved">Swap recorded.</string>
+    <string name="swap_stale">This swap changed. Go back to see the current proposals.</string>
+    <string name="swap_error_batch_changed">Nothing moved: a batch changed. Go back to see the current proposals.</string>
+    <string name="swap_error_not_proposed">Nothing moved: this swap is no longer proposed. Go back to see the current proposals.</string>
+    <string name="swap_error_failed">Nothing moved: the swap couldn\'t be saved. Try again.</string>
+
+    <!-- Inventory -->
+    <string name="inventory_add_batch">Add item</string>
+    <string name="inventory_search">Search by product name</string>
+    <string name="inventory_location">Location</string>
+    <string name="inventory_category">Category</string>
+    <string name="inventory_status">Status</string>
+    <string name="inventory_date_order">Date order</string>
+    <string name="inventory_show_archived">Show archived batches</string>
+    <!-- The button that opens and closes the filters (they start closed). -->
+    <string name="inventory_filters_show">Filters</string>
+    <string name="inventory_filters_hide">Hide filters</string>
+    <!-- The chips of the chosen filters under the search box, while the filters are closed. -->
+    <string name="filter_archived_shown">Archived batches shown</string>
+    <string name="filter_clear_all">Clear all</string>
+    <!-- What TalkBack reads for a chosen filter's chip, for example "Filter: Near date", and what
+         a double tap does ("Double-tap to remove this filter"). Its ✕ is read as "Remove …". -->
+    <string name="filter_chip_description">Filter: %1$s</string>
+    <string name="filter_chip_action">remove this filter</string>
+    <string name="filter_all_locations">All locations</string>
+    <string name="filter_all_categories">All categories</string>
+    <string name="filter_all_statuses">All statuses</string>
+    <!-- The two halves of Inventory's date-order switch, under the heading "Date order". -->
+    <string name="order_soonest_first">Soonest first</string>
+    <string name="order_latest_first">Latest first</string>
+    <plurals name="inventory_count">
+        <item quantity="one">Showing %1$d of %2$d batch</item>
+        <item quantity="other">Showing %1$d of %2$d batches</item>
+    </plurals>
+    <string name="inventory_status_note">Statuses appear once the date rules are finished.</string>
+    <string name="inventory_empty">No items yet. Tap “+ Add item” to add one.</string>
+    <!-- The chosen filters are chips under the search box, each with its own remove button. -->
+    <string name="inventory_no_matches">No matches. Clear the search or remove a filter.</string>
+
+    <!-- Add or edit batch -->
+    <string name="form_category_heading">What kind of item?</string>
+    <string name="form_product_heading">Product</string>
+    <string name="form_product_new">New product</string>
+    <string name="form_product_add_new">Add “%1$s” as a new product</string>
+    <string name="form_product_choose_existing">Choose one of your products</string>
+    <string name="form_product_choose">Product</string>
+    <string name="form_product_choose_helper">Type to search, or tap the arrow.</string>
+    <string name="form_product_none_yet">No products yet. Tap “New product”.</string>
+    <string name="form_product_name">Product name</string>
+    <string name="form_product_name_helper">For example: Canned beans</string>
+    <string name="form_unit">Unit</string>
+    <string name="form_unit_helper">Tap one below, or type your own.</string>
+    <string name="form_place_heading">Where and how many</string>
+    <string name="form_place_heading_one_item">Where it is kept</string>
+    <string name="form_location">Location</string>
+    <string name="form_location_edit">Location: %1$s. To change it, use “Move” on Batch details.</string>
+    <string name="form_new_location">New location</string>
+    <string name="form_quantity">Quantity</string>
+    <string name="form_quantity_with_unit">Quantity (%1$s)</string>
+    <string name="form_quantity_helper">0 to 9999</string>
+    <string name="form_quantity_edit_helper">0 to 9999. Saved as a count correction. To record use or a move, use Batch details.</string>
+    <string name="form_quantity_less">One less</string>
+    <string name="form_quantity_more">One more</string>
+    <!-- A new document or subscription: no quantity is asked. %1$s is "1 document". -->
+    <string name="form_one_item_note">Saved as %1$s.</string>
+    <string name="form_date_heading">Date on the package</string>
+    <string name="form_date_heading_one_item">Date</string>
+    <string name="form_date_label">Label type (next to the date)</string>
+    <!-- The label type in one line, with "Change" beside it (2026-10-22). %1$s is "Best by". -->
+    <string name="form_date_label_now">Label type: %1$s</string>
+    <string name="form_date_label_change">Change</string>
+    <string name="form_date_label_change_description">Change label type</string>
+    <string name="form_date_kind">What is printed?</string>
+    <!-- Opens "What is printed?" (2026-10-22). Documents and subscriptions have no package. -->
+    <string name="form_date_kind_show">No full date on the package?</string>
+    <string name="form_date_kind_show_one_item">No full date?</string>
+    <string name="form_date_complete">Full date</string>
+    <string name="form_date_incomplete">Part of a date</string>
+    <string name="form_date_none">No date</string>
+    <string name="form_choose_date">Choose date</string>
+    <!-- What TalkBack reads for the date button once a date is chosen. %1$s is "26 Oct 2026". -->
+    <string name="form_date_chosen_description">Date: %1$s. Change date</string>
+    <string name="form_printed_date">What the label shows</string>
+    <string name="form_printed_date_helper">Exactly as printed, for example 03/2027.</string>
+    <string name="form_use_month_end">Use the last day of the month (%1$s)</string>
+    <string name="form_month_end_note">Last day of “%1$s”. The package may mean another day, so check it.</string>
+    <string name="form_date_confirm">I checked the date and label type on the package.</string>
+    <string name="form_purchase_note">From your purchase list: %1$s of %2$s for %3$s. Enter the package date and where you put it.</string>
+    <string name="form_date_none_purchase">Bought items need a package date. If there is none, use “Add item” and remove this item from the list.</string>
+    <string name="form_review_intro_purchase">Added as a new batch:</string>
+    <string name="review_purchase_item">Removes “%1$s of %2$s for %3$s” from your purchase list.</string>
+    <string name="form_review_button">Review and save</string>
+    <string name="form_sample_note">Made-up sample item. It stays marked as a sample.</string>
+    <string name="form_missing">This batch no longer exists.</string>
+    <string name="form_review_heading">Review before saving</string>
+    <string name="form_review_intro_add">This batch will be added:</string>
+    <string name="form_review_intro_edit">These changes will be saved:</string>
+    <string name="form_review_no_changes">Nothing was changed.</string>
+    <string name="form_review_confirm">Confirm and save</string>
+    <string name="form_review_another">Save and add another</string>
+    <string name="form_review_back">Back to the form</string>
+    <!-- Back on the form after the household entered something ("Leave without saving?"). -->
+    <string name="form_leave_message">What you entered won\'t be saved.</string>
+    <string name="review_product">Product: %1$s</string>
+    <string name="review_product_new">Product: %1$s (new product)</string>
+    <string name="review_category">Category: %1$s</string>
+    <string name="review_location">Location: %1$s</string>
+    <string name="review_quantity">Quantity: %1$s</string>
+    <string name="review_date">Date: %1$s</string>
+    <string name="error_product_required">Choose a product, or tap “New product”.</string>
+    <string name="error_product_none_yet">No products yet. Tap “New product”.</string>
+    <string name="error_product_name_required">Enter a product name.</string>
+    <string name="error_unit_required">Enter a unit, for example cans.</string>
+    <string name="error_product_exists">You already have this product. Choose it from your products.</string>
+    <string name="error_name_required">Enter a name.</string>
+    <string name="error_quantity">Enter 0 to 9999.</string>
+    <string name="error_no_location">Choose a location.</string>
+    <string name="error_date_required">Choose a date, or another answer above.</string>
+    <string name="error_printed_date_required">Type what the label shows, or choose “No date”.</string>
+
+    <!-- Units the batch form offers as one-tap choices for a new product (CategoryDefaults).
+         The household can always type another. A new document or subscription gets its unit
+         without being asked. -->
+    <string name="unit_document">document</string>
+    <string name="unit_subscription">subscription</string>
+    <string-array name="units_food">
+        <item>cans</item>
+        <item>boxes</item>
+        <item>bags</item>
+        <item>bottles</item>
+        <item>jars</item>
+        <item>bars</item>
+    </string-array>
+    <string-array name="units_water">
+        <item>bottles</item>
+        <item>gallons</item>
+        <item>cases</item>
+    </string-array>
+    <string-array name="units_medicine">
+        <item>bottles</item>
+        <item>boxes</item>
+        <item>packs</item>
+    </string-array>
+    <string-array name="units_first_aid_supply">
+        <item>boxes</item>
+        <item>packs</item>
+        <item>kits</item>
+    </string-array>
+    <string-array name="units_cosmetic">
+        <item>tubes</item>
+        <item>bottles</item>
+        <item>jars</item>
+    </string-array>
+    <string-array name="units_document">
+        <item>@string/unit_document</item>
+    </string-array>
+    <string-array name="units_subscription">
+        <item>@string/unit_subscription</item>
+    </string-array>
+    <string-array name="units_other">
+        <item>items</item>
+        <item>packs</item>
+        <item>boxes</item>
+    </string-array>
+    <string name="error_not_saved">Not saved: the phone\'s database reported an error. Try again.</string>
+    <string name="error_batch_changed">Not saved: this batch changed. Check the amounts and try again.</string>
+    <string name="error_purchase_date_required">A bought item needs its printed date.</string>
+    <string name="error_purchase_quantity">Enter how many you bought: 1 to 9999.</string>
+    <string name="error_purchase_item_gone">Not saved: this item is no longer on your purchase list. Check Inventory first.</string>
+
+    <!-- Kits: shown when stock leaves an Emergency kit or First aid location -->
+    <string name="kit_amounts">%1$s in %2$s: %3$s before, %4$s after.</string>
+    <string name="kit_warning">Replacement may be needed. DueWise doesn\'t check kit supply targets.</string>
+
+    <!-- Label photos on the Add batch form (adding only; the button is hidden since 2026-10-23).
+         The photos are read on the phone. -->
+    <string name="scan_take_photos">Take label photos</string>
+    <string name="scan_date_filled">Date from the photo: %1$s. Check it below.</string>
+    <string name="scan_date_filled_no_label">Date from the photo: %1$s. Check the label type below.</string>
+    <string name="scan_date_not_chosen">No date chosen from the photos. Enter it below.</string>
+    <string name="scan_category_set">Category set to %1$s (found “%2$s”).</string>
+    <string name="scan_category_kept">The label suggests %1$s (“%2$s”), but your category was kept.</string>
+    <string name="scan_category_none">No category clue found.</string>
+    <string name="scan_names_hint">Tap a line to use it as the product name, then check the product.</string>
+    <string name="scan_names_heading">Text found on the product photo</string>
+    <string name="scan_use_name">Use “%1$s” as the product name</string>
+    <string name="scan_note_date">From the photo. Check it.</string>
+    <string name="scan_note_date_month_only">From the photo: month and year only, kept as an incomplete date. Check it.</string>
+    <string name="scan_note_date_as_printed">From the photo: it can be read two ways, so it\'s kept as printed. Check the package.</string>
+    <string name="scan_note_category">From the photo (“%1$s”). Check it.</string>
+    <string name="history_date_from_photo">Date read from a label photo: “%1$s”.</string>
+
+    <!-- The Label photos screen (photo entry). Photos are read on the phone, never sent anywhere,
+         and deleted. The text on a photo never identifies the product. -->
+    <string name="photo_step_product">Step 1 of 2: the product (optional)</string>
+    <string name="photo_step_product_hint">Hold about 20 cm (8 inches) away, with the name in the frame.</string>
+    <string name="photo_step_date">Step 2 of 2: the printed date (optional)</string>
+    <string name="photo_step_date_hint">Hold about 15 cm (6 inches) away. Zoom until the date is large.</string>
+    <string name="photo_preview_product">Camera view for the product photo</string>
+    <string name="photo_preview_date">Camera view for the date photo</string>
+    <string name="photo_take">Take photo</string>
+    <string name="photo_choose">Choose a saved photo</string>
+    <string name="photo_skip">Skip this photo</string>
+    <string name="photo_back_to_form">Back to the form</string>
+    <string name="photo_light_on">Turn on the light</string>
+    <string name="photo_light_off">Turn off the light</string>
+    <string name="photo_focusing">Focusing…</string>
+    <string name="photo_in_focus">In focus.</string>
+    <string name="photo_not_focused">Couldn\'t focus. Hold about 15 cm (6 inches) away, or turn on the light.</string>
+    <string name="photo_not_focused_no_photo">Couldn\'t focus, so no photo was taken. Hold about 15 cm (6 inches) away and try again.</string>
+    <string name="photo_hold_still">Hold still…</string>
+    <string name="photo_camera_asking">The camera is used only here, for label photos. Photos stay on the phone.</string>
+    <string name="photo_camera_refused">No camera permission. Choose a saved photo, skip, or go back to the form.</string>
+    <string name="photo_camera_refused_settings">To use the camera, allow it in the app settings.</string>
+    <string name="photo_ask_again">Ask again</string>
+    <string name="photo_open_settings">Open app settings</string>
+    <string name="photo_settings_missing">No settings page found. In Settings, open Apps, DueWise, Permissions, Camera.</string>
+    <string name="photo_no_camera">No camera found. Choose a saved photo, skip, or go back to the form.</string>
+    <string name="photo_camera_failed">The camera didn\'t start. Choose a saved photo, skip, or go back to the form.</string>
+    <string name="photo_not_saved">No photo was taken. Try again.</string>
+    <string name="photo_lost">The photo was lost. Take it again.</string>
+    <string name="photo_no_picker">No photo picker on this phone.</string>
+    <string name="photo_review_heading">Check what was read</string>
+    <string name="photo_review_intro">Read on the phone. Nothing is filled in until you choose it.</string>
+    <string name="photo_reading">Reading the photos…</string>
+    <string name="photo_product_heading">Text on the product photo</string>
+    <string name="photo_date_heading">Text on the date photo</string>
+    <string name="photo_text_skipped">No photo was taken.</string>
+    <string name="photo_text_reading">Reading this photo…</string>
+    <string name="photo_text_none">No text found. Take it again from about 15 cm (6 inches).</string>
+    <string name="photo_text_failed">This photo couldn\'t be read. Take it again.</string>
+    <string name="photo_product_note">DueWise can\'t tell which product this is. Choose it on the form.</string>
+    <string name="photo_retake_product">Take the product photo again</string>
+    <string name="photo_retake_date">Take the date photo again</string>
+    <string name="photo_dates_heading">Possible dates</string>
+    <string name="photo_dates_choose">Tap the date the package shows.</string>
+    <string name="photo_dates_not_connected">Not available yet. Enter the date on the form.</string>
+    <string name="photo_dates_no_photo">No date photo. Take one, or enter the date on the form.</string>
+    <string name="photo_dates_waiting">Dates appear once the date photo is read.</string>
+    <string name="photo_dates_not_read">The date photo couldn\'t be read. Take it again, or enter the date on the form.</string>
+    <string name="photo_dates_no_text">No text on the date photo. Take it again, or enter the date on the form.</string>
+    <string name="photo_dates_none">No date found. Take it again from about 15 cm (6 inches), or enter it on the form.</string>
+    <!-- The error's details are never shown or logged: they could contain label text. -->
+    <string name="photo_dates_failed">No dates: reading stopped with an error. Enter the date on the form.</string>
+    <string name="photo_two_readings_note">“%1$s” can be read two ways. Choose one below.</string>
+    <string name="photo_use_date">Use %1$s (read “%2$s”)</string>
+    <string name="photo_use_month_first">Use %1$s, if “%2$s” is month/day/year</string>
+    <string name="photo_use_day_first">Use %1$s, if “%2$s” is day/month/year</string>
+    <string name="photo_use_as_printed">Keep “%1$s” as printed (needs review)</string>
+    <string name="photo_use_month_and_year">Use “%1$s” (month and year only)</string>
+    <string name="photo_incomplete_date">“%1$s” (incomplete date)</string>
+    <string name="photo_continue_without_date">Continue without a date</string>
+    <string name="photo_cancel">Cancel</string>
+
+    <!-- New location dialog -->
+    <string name="new_location_title">New location</string>
+    <string name="new_location_name">Location name</string>
+    <string name="new_location_type">Type</string>
+    <string name="new_location_type_help">Tells the rules how this place is used.</string>
+    <!-- What TalkBack reads for a type, so it makes sense on its own, for example "Type: Pantry". -->
+    <string name="new_location_type_answer">Type: %1$s</string>
+    <string name="new_location_add">Add</string>
+    <string name="error_location_exists">A location with this name already exists.</string>
+    <string name="new_location_failed">The location wasn\'t added.</string>
+
+    <!-- History entries. They are saved in the database when a batch changes. -->
+    <string name="history_added">Added %1$s to %2$s.</string>
+    <string name="history_product_changed">Product changed from %1$s to %2$s.</string>
+    <string name="history_category_changed">Category changed from %1$s to %2$s.</string>
+    <string name="history_count_corrected">Count corrected from %1$s to %2$s.</string>
+    <string name="history_date_changed">Date changed from %1$s to %2$s.</string>
+    <string name="history_date_month_end">The last day of the month was chosen for “%1$s”.</string>
+    <string name="history_date_confirmed">Date and label type confirmed.</string>
+    <string name="history_date_not_confirmed">Date and label type not confirmed.</string>
+    <string name="history_used">Recorded as used: %1$s. Quantity changed from %2$s to %3$s.</string>
+    <string name="history_discarded">Recorded as discarded: %1$s. Quantity changed from %2$s to %3$s.</string>
+    <string name="history_moved_all">Moved all %1$s from %2$s to %3$s.</string>
+    <string name="history_moved_some">Moved %1$s to %2$s. Quantity here changed from %3$s to %4$s.</string>
+    <string name="history_moved_in">Added by moving %1$s from %2$s. The rest stayed there.</string>
+    <string name="history_archived">Archived with %1$s in %2$s.</string>
+    <string name="history_swap_out_all">Swap: moved all %1$s from %2$s to %3$s, for review.</string>
+    <string name="history_swap_out_some">Swap: moved %1$s to %2$s, for review. Quantity here changed from %3$s to %4$s.</string>
+    <string name="history_swap_out_new">Added by a swap: %1$s moved from %2$s, for review. The rest stayed there.</string>
+    <string name="history_swap_in_all">Swap: moved all %1$s from %2$s into %3$s.</string>
+    <string name="history_swap_in_some">Swap: moved %1$s into %2$s. Quantity here changed from %3$s to %4$s.</string>
+    <string name="history_swap_in_new">Added by a swap: %1$s moved from %2$s. The rest stayed there.</string>
+    <string name="history_bought_from_list">Bought from the purchase list.</string>
+    <!-- "Renewed" on the Purchase/Renewal list (since 2026-10-24). %1$s and %2$s are the old and
+         new date with their label, for example "Expires: 20 Oct 2036". -->
+    <string name="history_renewed">Renewed. Date changed from %1$s to %2$s.</string>
+    <!-- After "Discard" on the Purchase/Renewal list: the entry after "Recorded as discarded". -->
+    <string name="history_renewal_archived">Archived, because it was discarded on the Purchase/Renewal list.</string>
+    <string name="history_type_added">Added</string>
+    <string name="history_type_edited">Edited</string>
+    <string name="history_type_moved">Moved</string>
+    <string name="history_type_used">Recorded as used</string>
+    <string name="history_type_discarded">Recorded as discarded</string>
+    <string name="history_type_archived">Archived</string>
+    <string name="history_type_swapped">Swapped</string>
+    <string name="history_heading">%1$s: %2$s</string>
+
+    <!-- Batch details -->
+    <string name="details_quantity">Quantity: %1$s</string>
+    <string name="details_location">Location: %1$s (%2$s)</string>
+    <string name="details_category">Category: %1$s</string>
+    <string name="details_status_off">Status: not available yet.</string>
+    <string name="details_status_archived">Status: none (archived).</string>
+    <string name="details_actions">Change this batch</string>
+    <string name="details_edit">Edit batch</string>
+    <string name="details_move">Move</string>
+    <string name="details_used">Done</string>
+    <string name="details_discarded">Record discarded</string>
+    <string name="details_archive">Archive</string>
+    <string name="details_zero_left">0 left. You can archive this batch.</string>
+    <string name="details_archived_note">Archived: hidden in Inventory unless “Show archived batches” is on.</string>
+    <string name="details_history">History</string>
+    <string name="details_history_empty">No history yet.</string>
+    <string name="details_missing">This batch no longer exists.</string>
+
+    <!-- Stock changes: move, used, discarded, archive -->
+    <string name="stock_how_much">How much?</string>
+    <!-- What TalkBack reads for an answer of "How much?", so it makes sense on its own.
+         %1$s is the answer, for example "All (4 cans)" or "Some". -->
+    <string name="stock_how_much_answer">How much? %1$s</string>
+    <string name="stock_all">All (%1$s)</string>
+    <string name="stock_some">Some</string>
+    <string name="stock_amount">Amount</string>
+    <string name="stock_amount_with_unit">Amount (%1$s)</string>
+    <string name="stock_amount_helper">1 to %1$d</string>
+    <string name="error_stock_amount">Enter 1 to %1$d.</string>
+    <string name="stock_destination">Move to</string>
+    <string name="error_stock_destination">Choose a location other than %1$s.</string>
+    <string name="stock_no_other_location">No other location yet. Add one on the Add item form.</string>
+    <string name="stock_review_button">Review</string>
+    <string name="stock_review_heading">Review the change</string>
+    <string name="stock_confirm">Confirm</string>
+    <string name="stock_back">Back</string>
+    <string name="stock_medicine_note">This only records your stock. It isn\'t medicine advice.</string>
+    <string name="stock_review_used">Record as used: %1$s of %2$s.</string>
+    <string name="stock_review_discarded">Record as discarded: %1$s of %2$s.</string>
+    <string name="stock_review_batch">This batch: %1$s before, %2$s after.</string>
+    <string name="stock_review_move">Move %1$s of %2$s from %3$s to %4$s.</string>
+    <string name="stock_review_move_all">The whole batch moves. Nothing stays in %1$s.</string>
+    <string name="stock_review_move_some">This batch keeps %1$s in %2$s. A new batch gets %3$s in %4$s.</string>
+    <string name="stock_review_destination">%1$s in %2$s: %3$s before, %4$s after.</string>
+    <string name="stock_review_archive">Archive %1$s (%2$s in %3$s). Inventory hides it; its history is kept.</string>
+    <string name="stock_archived">This batch is archived.</string>
+    <string name="stock_nothing_left">0 left: nothing to use, discard, or move.</string>
+
+    <!-- Purchase/Renewal list. An item on the list is only a note: it never changes recorded
+         stock. -->
+    <string name="purchase_intro">What to replace or renew, and what you plan to buy.</string>
+    <string name="purchase_still_needed">Still needs replacement: %1$s. %2$s</string>
+    <string name="purchase_empty">Nothing needs replacement right now.</string>
+    <string name="purchase_needs_heading">Replacement needs</string>
+    <string name="purchase_list_heading">On your purchase list</string>
+    <string name="purchase_list_empty">Empty. Add items from Replacement needs below.</string>
+    <string name="purchase_entry_amount">To buy: %1$s for %2$s</string>
+    <!-- How much the replacement needs add up to now, for the same product and place. -->
+    <string name="purchase_entry_needed_now">Needed now: %1$s</string>
+    <string name="purchase_entry_not_needed">Not needed right now.</string>
+    <string name="purchase_entry_bought">Record as bought</string>
+    <string name="purchase_entry_bought_description">Record as bought: %1$s for %2$s</string>
+    <string name="purchase_entry_use">Change to %1$s</string>
+    <string name="purchase_entry_use_description">Change %1$s for %2$s to %3$s</string>
+    <string name="purchase_entry_remove">Remove from list</string>
+    <string name="purchase_entry_remove_description">Remove from list: %1$s for %2$s</string>
+    <!-- On a replacement need's card (since 2026-10-22, when the Suggestions section was
+         removed). The button adds what the needs of the same product and place add up to. -->
+    <string name="purchase_need_add">Add to purchase list</string>
+    <string name="purchase_need_add_description">Add to purchase list: %1$s for %2$s</string>
+    <string name="purchase_need_on_list">On your purchase list.</string>
+    <string name="purchase_need_sample">Sample items can\'t go on the purchase list.</string>
+    <string name="purchase_add_title">Add to purchase list?</string>
+    <string name="purchase_add_message">%1$s of %2$s for %3$s. Only a note: your stock doesn\'t change.</string>
+    <string name="purchase_add_confirm">Add</string>
+    <string name="purchase_use_title">Change the amount on the list?</string>
+    <string name="purchase_use_message">%1$s for %2$s: from %3$s to %4$s. Your stock doesn\'t change.</string>
+    <string name="purchase_use_confirm">Change</string>
+    <string name="purchase_remove_title">Remove from purchase list?</string>
+    <string name="purchase_remove_message">%1$s of %2$s for %3$s. Your stock doesn\'t change.</string>
+    <string name="purchase_remove_confirm">Remove</string>
+    <string name="purchase_added">Added to your list: %1$s of %2$s for %3$s.</string>
+    <string name="purchase_already_on_list">Already on your list for this place.</string>
+    <string name="purchase_changed">Changed on your list: %1$s for %2$s is now %3$s.</string>
+    <string name="purchase_removed">Removed from your list: %1$s for %2$s.</string>
+    <string name="purchase_item_changed">Not changed: this item changed or was removed.</string>
+    <string name="purchase_change_failed">Not changed: the phone\'s database reported an error. Try again.</string>
+    <!-- Renewal (since 2026-10-24, the student's request): documents and subscriptions dated today
+         or earlier, with something left. They are renewed, not bought, so they never get a
+         replacement need. "Renewed" saves a new date after today; "Discard" records a discard and
+         archives the batch. Both ask first. A change that wasn't made uses purchase_item_changed
+         or purchase_change_failed. -->
+    <string name="purchase_renewal_heading">Renewal</string>
+    <string name="renewal_empty">Nothing to renew right now.</string>
+    <string name="renewal_renewed">Renewed</string>
+    <string name="renewal_renewed_description">Renewed: %1$s in %2$s</string>
+    <string name="renewal_discard">Discard</string>
+    <string name="renewal_discard_description">Discard: %1$s in %2$s</string>
+    <!-- After the new date is picked. %1$s is the name, %2$s the place, and %3$s and %4$s the old
+         and new date with their label, for example "Expires: 20 Oct 2036". -->
+    <string name="renewal_renewed_title">Save the new date?</string>
+    <string name="renewal_renewed_message">%1$s in %2$s: from %3$s to %4$s.</string>
+    <string name="renewal_renewed_confirm">Save</string>
+    <string name="renewal_discard_title">Discard and archive?</string>
+    <string name="renewal_discard_message">%1$s in %2$s. Its history says it was discarded, and Inventory hides it unless “Show archived batches” is on.</string>
+    <string name="renewal_discard_confirm">Discard</string>
+    <string name="renewal_saved_renewed">Renewed: %1$s, %2$s.</string>
+    <string name="renewal_saved_discarded">Discarded and archived: %1$s.</string>
+
+    <!-- Notifications. They never say that food is safe. Since 2026-10-19 the reminder names up
+         to two items and counts the rest, but never names medicine. Its lock-screen version
+         (reminder_daily_title and reminder_daily_text) never names items or gives counts. Since
+         2026-10-23 Settings' "Show reminder now" shows this same reminder; the test reminder
+         (reminder_test_title and reminder_test_text) is gone. Since 2026-10-23 the reminder also
+         carries the number for the app icon (Home's tiles added up); it is not in these words. -->
+    <string name="reminder_channel_name">Review reminders</string>
+    <string name="reminder_channel_description">A notification that pops up with a sound, at most once a day, when household items need review. It names up to two of them, but never medicine.</string>
+    <string name="reminder_daily_title">Household items need review</string>
+    <string name="reminder_daily_text">Open DueWise to see the review list.</string>
+    <!-- The reminder's list (ReminderNotifier.listText). %1$s and %2$s are product names, or the
+         word for medicine below; %3$d is how many other names there are. "Others" since
+         2026-10-23 (the student's word; "and 3 more" before). -->
+    <string name="reminder_daily_two">%1$s and %2$s</string>
+    <plurals name="reminder_daily_more">
+        <item quantity="one">%1$s, %2$s, and %3$d other</item>
+        <item quantity="other">%1$s, %2$s, and %3$d others</item>
+    </plurals>
+    <!-- Stands for all medicine that needs review: the reminder never names medicine. -->
+    <string name="reminder_daily_medicine">medicine</string>
+    <string name="reminder_daily_medicine_first">Medicine</string>
+
+    <!-- The home-screen widget. Its line is widget_review_count or one of three strings above:
+         reminder_daily_title, home_needs_review_empty, or reminder_daily_text. It never names items
+         or says that food is safe. -->
+    <string name="widget_name">Review list</string>
+    <string name="widget_description">Shows how many of your own household items need review, without naming them. Tap it to open DueWise.</string>
+    <!-- The widget's line since 2026-10-23 (the student's choice). %d is Home's status tiles added
+         up (Date passed, Date is today, Near date), the same number as on the app icon. -->
+    <plurals name="widget_review_count">
+        <item quantity="one">%d household item needs review</item>
+        <item quantity="other">%d household items need review</item>
+    </plurals>
+
+    <!-- Settings. Since 2026-10-19 (the student's request) every text in view is short and gets to
+         the main point; the longer reminder texts are under "More about this". Safety sentences
+         stay in view ("planning choices, not safety guarantees", "Never names medicine"). -->
+    <string name="settings_thresholds">Planning settings</string>
+    <string name="settings_thresholds_intro">These are planning choices, not safety guarantees.</string>
+    <string name="settings_thresholds_not_used_yet">Saved now, used once the rules are finished.</string>
+    <string name="settings_near_date_days">Near-date days</string>
+    <string name="settings_near_date_days_helper">Dates within this many days count as near. 1\u00A0to 365, default 30.</string>
+    <string name="settings_replacement_days">Replacement days</string>
+    <string name="settings_replacement_days_helper">A replacement\'s date must be at least this far away. Up to 3650, default 180.</string>
+    <string name="settings_save_thresholds">Save planning settings</string>
+    <string name="settings_thresholds_saved">Planning settings saved.</string>
+    <string name="error_near_date_days">Enter 1 to 365.</string>
+    <string name="error_replacement_days">Enter 1 to 3650.</string>
+    <string name="error_replacement_not_more">Enter more than the near-date days (%1$d).</string>
+    <!-- Asked on Back while a planning number is changed but not saved. "Leave" saves nothing.
+         The batch form asks the same question, with its own message (form_leave_message). -->
+    <string name="settings_leave_title">Leave without saving?</string>
+    <string name="settings_leave_message">Your planning changes aren\'t saved.</string>
+    <string name="settings_leave_keep_editing">Keep editing</string>
+    <string name="settings_leave_confirm">Leave</string>
+    <string name="settings_reminders">Reminders</string>
+    <!-- In view, under the "Daily reminder" switch. -->
+    <string name="settings_reminders_summary">Daily, when dates are near or passed. Never names medicine.</string>
+    <!-- "More about this": shows or hides a longer explanation right below it (MoreText). -->
+    <string name="more_show">More about this</string>
+    <string name="more_hide">Show less</string>
+    <string name="more_state_collapsed">Collapsed</string>
+    <string name="more_state_expanded">Expanded</string>
+    <!-- Under "More about this" at the end of the Reminders card: the intro, the lock screen, the
+         delay, the how-to, and what "Show reminder now" does. -->
+    <string name="settings_reminders_intro">Soonest dates first, for example “Canned beans, Granola bars, and 3 others”. Medicine shows only as “medicine”.</string>
+    <string name="settings_reminders_lock_screen">Your lock screen setting decides if names show there. Do Not Disturb still applies. Sample items never cause a reminder.</string>
+    <string name="settings_reminders_switch">Daily reminder</string>
+    <string name="settings_reminders_off">Not available yet: it needs the date rules.</string>
+    <string name="settings_notifications_allowed">Notifications are allowed.</string>
+    <string name="settings_notifications_not_allowed">Notifications are off, so reminders can\'t appear.</string>
+    <string name="settings_reminders_delay">Android may send a reminder late or skip a day. After a force-stop, open DueWise to restart reminders.</string>
+    <string name="settings_reminders_how">If Android doesn\'t ask, tap “Open notification settings” and turn them on.</string>
+    <string name="settings_open_notification_settings">Open notification settings</string>
+    <string name="settings_notification_settings_missing">Couldn\'t open them. In Settings, open Apps, DueWise, Notifications.</string>
+    <string name="settings_last_reminder">Last reminder: %1$s</string>
+    <string name="settings_last_reminder_none">No reminder shown yet.</string>
+    <!-- Since 2026-10-23 (the student's choice) this button shows the reminder with the
+         household's items, in place of "Send a test reminder". It isn't recorded, so the daily
+         reminder still comes. -->
+    <string name="settings_show_reminder">Show reminder now</string>
+    <string name="settings_show_reminder_note">Shows the reminder with your items at once. The daily reminder still comes as usual.</string>
+    <string name="settings_show_reminder_sent">Reminder sent. Look in your notifications.</string>
+    <string name="settings_show_reminder_nothing">Nothing is near date or passed. No reminder to show.</string>
+    <string name="settings_show_reminder_failed">No reminder: checking your items stopped with an error. Try again.</string>
+    <!-- A short message at the bottom of the screen. "Open notification settings" is in view,
+         right under the notifications line, and the how-to text is under "More about this". -->
+    <string name="settings_notifications_refused">Notifications are not allowed. Everything else still works.</string>
+    <string name="settings_reminder_turned_on">Daily reminder turned on.</string>
+    <string name="settings_reminder_turned_off">Daily reminder turned off.</string>
+    <!-- The button under the "Sample data" label on every screen, and its question
+         (SampleDataClose). Settings had a Sample data card with more buttons until 2026-10-22. -->
+    <string name="settings_close_sample">Close sample data</string>
+    <string name="settings_close_sample_title">Close sample data?</string>
+    <string name="settings_close_sample_message">Your records come back. Made-up items and changes to them are deleted.</string>
+    <!-- Toasts: Android shows only two lines of a toast, so these stay short. -->
+    <string name="settings_sample_closed">Sample data is closed. Your own records are shown.</string>
+    <string name="settings_sample_close_failed">Sample data didn\'t close. Try again.</string>
+    <string name="settings_thresholds_sample">Sample data has its own numbers. Yours don\'t change.</string>
+
+    <!-- Short messages after a save, at the bottom of the screen (Confirmations). They only say
+         what was recorded. -->
+    <string name="confirm_batch_added">Batch added.</string>
+    <string name="confirm_batch_changed">Changes saved.</string>
+    <!-- After "Confirm and save" on an Edit that changed nothing: nothing was saved. -->
+    <string name="confirm_no_changes">No changes to save.</string>
+    <string name="confirm_used">Recorded as used: %1$s.</string>
+    <string name="confirm_discarded">Recorded as discarded: %1$s.</string>
+    <string name="confirm_moved">Moved %1$s to %2$s.</string>
+    <string name="confirm_archived">Batch archived.</string>
+</resources>

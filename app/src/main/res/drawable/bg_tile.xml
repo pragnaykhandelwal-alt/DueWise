@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A tile in Home's grid: a white card on the pine band (B1, since 2026-10-23; light gray before).
+     Colors are only on its icon circle and number, so all the tiles look like one set. A tile can
+     be tapped, so a press shows a ripple, kept inside the card's rounded corners. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorControlHighlight">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/tile_corner_radius" />
+            <solid android:color="?attr/colorSurfaceContainerLowest" />
+        </shape>
+    </item>
+</ripple>

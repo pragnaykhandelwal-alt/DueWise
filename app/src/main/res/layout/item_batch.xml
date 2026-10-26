@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One batch on a card: the category icon, the batch's lines, and its status label.
+     The whole card is one touch target, so TalkBack reads all of its lines together and a tap
+     anywhere opens Batch details. A screen can add one button at the end (BatchRow.Action):
+     since 2026-10-22 the Purchase list's replacement needs have "Add to purchase list". Since
+     2026-10-24 a second button can follow it: Renewal's cards have "Renewed" and "Discard".
+     Since 2026-10-23 (B1) it is the app's white card with a thin border (ReadyShelf.Card), like
+     Home's swap card; before that a raised light gray card. -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="?attr/materialCardViewOutlinedStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="2dp"
+    android:layout_marginTop="@dimen/space_small"
+    android:layout_marginBottom="2dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:minHeight="@dimen/row_min_height">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_medium">
+
+        <!-- The category. BatchAdapter gives it the category word as its spoken label, so lint's
+             check for a missing label in this file doesn't apply. -->
+        <ImageView
+            android:id="@+id/batch_category_icon"
+            android:layout_width="@dimen/category_icon_size"
+            android:layout_height="@dimen/category_icon_size"
+            android:layout_marginEnd="@dimen/space_medium"
+            android:background="@drawable/bg_category_icon"
+            android:padding="@dimen/category_icon_padding"
+            app:tint="?attr/colorOnSecondaryContainer"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_restaurant" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/batch_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                tools:text="Granola bars" />
+
+            <TextView
+                android:id="@+id/batch_product_details"
+                style="@style/ReadyShelf.Body"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:visibility="gone"
+                tools:text="Oat and honey · 1.5 oz"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/batch_sample"
+                style="@style/ReadyShelf.SampleTag"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/batch_archived"
+                style="@style/ReadyShelf.ArchivedTag"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/batch_amount"
+                style="@style/ReadyShelf.Body"
+                android:layout_marginTop="4dp"
+                tools:text="6 bars in Earthquake kit" />
+
+            <TextView
+                android:id="@+id/batch_date"
+                style="@style/ReadyShelf.Body"
+                tools:text="Best by: 26 Oct 2026" />
+
+            <!-- Why the date needs review. Regular weight: the status label below already makes
+                 it stand out. -->
+            <TextView
+                android:id="@+id/batch_date_review"
+                style="@style/ReadyShelf.Body"
+                android:visibility="gone"
+                tools:text="@string/date_review_unconfirmed"
+                tools:visibility="visible" />
+
+            <!-- The status from the date rules: icon, word, and color (StatusLook). -->
+            <TextView
+                android:id="@+id/batch_status"
+                style="@style/ReadyShelf.StatusLabel"
+                android:visibility="gone"
+                tools:text="@string/status_near_date"
+                tools:visibility="visible" />
+
+            <!-- An extra line, for example "Still needs replacement: 2 cans. …" on the Purchase list. -->
+            <TextView
+                android:id="@+id/batch_note"
+                style="@style/ReadyShelf.Body"
+                android:layout_marginTop="4dp"
+                android:visibility="gone"
+                tools:text="Still needs replacement: 2 cans. Pantry batches cover only part of it."
+                tools:visibility="visible" />
+
+            <!-- Only where a screen gives the row an action (BatchAdapter). It is its own touch
+                 target, with its own spoken label. -->
+            <Button
+                android:id="@+id/batch_action"
+                style="@style/ReadyShelf.Button.Tonal"
+                android:visibility="gone"
+                tools:text="@string/purchase_need_add"
+                tools:visibility="visible" />
+
+            <!-- A second button, outlined, under the first one (since 2026-10-24). -->
+            <Button
+                android:id="@+id/batch_second_action"
+                style="@style/ReadyShelf.Button.Outlined"
+                android:visibility="gone"
+                tools:text="@string/renewal_discard" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

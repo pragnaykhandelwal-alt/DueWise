@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The home-screen widget's rounded background. On Android 12 and newer the corners match the
+     home screen's own widgets (values-v31/dimens.xml). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/widget_background" />
+    <corners android:radius="@dimen/widget_corner_radius" />
+</shape>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The controls of one photo step on the Label photos screen (both orientations). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/screen_padding">
+
+    <!-- A polite live region, so TalkBack reads the new step when it changes. -->
+    <TextView
+        android:id="@+id/photo_step_title"
+        style="@style/ReadyShelf.SectionHeading"
+        android:layout_marginTop="0dp"
+        android:accessibilityHeading="true"
+        android:accessibilityLiveRegion="polite"
+        tools:targetApi="28"
+        tools:text="@string/photo_step_product" />
+
+    <TextView
+        android:id="@+id/photo_step_hint"
+        style="@style/ReadyShelf.Body"
+        tools:text="@string/photo_step_product_hint" />
+
+    <!-- Why the camera can't be used, and what to do instead. -->
+    <TextView
+        android:id="@+id/photo_camera_message"
+        style="@style/ReadyShelf.Notice.Warning"
+        android:accessibilityLiveRegion="polite"
+        android:visibility="gone"
+        tools:text="@string/photo_camera_refused"
+        tools:visibility="visible" />
+
+    <!-- "Hold still…", a notice about the last photo, or whether the camera could focus. -->
+    <TextView
+        android:id="@+id/photo_status"
+        style="@style/ReadyShelf.Notice"
+        android:accessibilityLiveRegion="polite"
+        android:visibility="gone"
+        tools:text="@string/photo_in_focus"
+        tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/photo_take"
+        style="@style/ReadyShelf.Button"
+        android:text="@string/photo_take" />
+
+    <Button
+        android:id="@+id/photo_light"
+        style="@style/ReadyShelf.Button.Tonal"
+        android:text="@string/photo_light_on"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/photo_ask_again"
+        style="@style/ReadyShelf.Button"
+        android:text="@string/photo_ask_again"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/photo_open_settings"
+        style="@style/ReadyShelf.Button.Tonal"
+        android:text="@string/photo_open_settings"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/photo_choose"
+        style="@style/ReadyShelf.Button.Tonal"
+        android:text="@string/photo_choose" />
+
+    <Button
+        android:id="@+id/photo_skip"
+        style="@style/ReadyShelf.Button.Outlined"
+        android:text="@string/photo_skip" />
+
+    <Button
+        android:id="@+id/photo_back_to_form"
+        style="@style/ReadyShelf.Button.Outlined"
+        android:text="@string/photo_back_to_form" />
+</LinearLayout>

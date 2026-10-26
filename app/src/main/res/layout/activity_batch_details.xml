@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Batch details (new look on 2026-10-19, the student's choice): a header card with the batch
+     at a glance, a card of facts with icons, the actions with one main button, and the history as
+     a timeline (a food card until 2026-10-22). The words always say everything; the icons only
+     help. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.batch.BatchDetailsActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationContentDescription="@string/navigate_back"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:title="@string/title_batch_details" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/screen_padding">
+
+            <TextView
+                android:id="@+id/details_missing"
+                style="@style/ReadyShelf.Notice.Error"
+                android:layout_marginTop="0dp"
+                android:text="@string/details_missing"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/details_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <!-- The batch at a glance: its category icon, name, product, tags, and status. -->
+                <LinearLayout
+                    style="@style/ReadyShelf.Panel"
+                    android:layout_marginTop="0dp">
+
+                    <!-- The icon has its own colored circle, which a text view's compound drawable
+                         can't have, so lint's suggestion to merge these two views doesn't apply. -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <!-- Only decoration: the Category row below says the category in words. -->
+                        <ImageView
+                            android:id="@+id/details_category_icon"
+                            android:layout_width="@dimen/category_icon_size"
+                            android:layout_height="@dimen/category_icon_size"
+                            android:background="@drawable/bg_category_icon"
+                            android:importantForAccessibility="no"
+                            android:padding="@dimen/category_icon_padding"
+                            app:tint="?attr/colorOnSecondaryContainer"
+                            tools:src="@drawable/ic_restaurant" />
+
+                        <TextView
+                            android:id="@+id/details_name"
+                            style="@style/ReadyShelf.Body"
+                            android:layout_width="0dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:accessibilityHeading="true"
+                            android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                            tools:targetApi="28"
+                            tools:text="Granola bars" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/details_product"
+                        style="@style/ReadyShelf.Body"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        tools:text="Variant: Oat and honey. Package size: 1.5 oz. Unit: bars." />
+
+                    <TextView
+                        android:id="@+id/details_sample"
+                        style="@style/ReadyShelf.SampleTag"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                    <!-- The words say "Archived", so color is not the only sign. -->
+                    <TextView
+                        android:id="@+id/details_archived"
+                        style="@style/ReadyShelf.ArchivedTag"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                    <!-- The status from the date rules: icon, word, and color (StatusLook). -->
+                    <TextView
+                        android:id="@+id/details_status_label"
+                        style="@style/ReadyShelf.StatusLabel"
+                        android:visibility="gone"
+                        tools:text="@string/status_near_date"
+                        tools:visibility="visible" />
+
+                    <!-- Instead of the label: why there is no status (archived, or an error). -->
+                    <TextView
+                        android:id="@+id/details_status"
+                        style="@style/ReadyShelf.Body"
+                        android:layout_marginTop="@dimen/space_small"
+                        tools:text="@string/details_status_archived" />
+                </LinearLayout>
+
+                <!-- The facts, one row each. BatchDetailsActivity puts an icon before each. -->
+                <LinearLayout style="@style/ReadyShelf.Panel">
+
+                    <TextView
+                        android:id="@+id/details_quantity"
+                        style="@style/ReadyShelf.DetailRow"
+                        tools:text="Quantity: 6 bars" />
+
+                    <TextView
+                        android:id="@+id/details_location"
+                        style="@style/ReadyShelf.DetailRow"
+                        tools:text="Location: Earthquake kit (Emergency kit)" />
+
+                    <TextView
+                        android:id="@+id/details_category"
+                        style="@style/ReadyShelf.DetailRow"
+                        tools:text="Category: Food" />
+
+                    <TextView
+                        android:id="@+id/details_date"
+                        style="@style/ReadyShelf.DetailRow"
+                        tools:text="Best by: 26 Oct 2026" />
+
+                    <!-- Why the date needs review. Regular weight: the status label above already
+                         makes it stand out. -->
+                    <TextView
+                        android:id="@+id/details_date_review"
+                        style="@style/ReadyShelf.Body"
+                        android:layout_marginTop="4dp"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:visibility="gone"
+                        tools:text="@string/date_review_unconfirmed"
+                        tools:visibility="visible" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/ReadyShelf.SectionHeading"
+                    android:accessibilityHeading="true"
+                    android:text="@string/details_actions"
+                    tools:targetApi="28" />
+
+                <TextView
+                    android:id="@+id/details_action_note"
+                    style="@style/ReadyShelf.Notice"
+                    android:layout_marginTop="0dp"
+                    android:visibility="gone"
+                    tools:text="@string/details_zero_left"
+                    tools:visibility="visible" />
+
+                <!-- The main action. The others are smaller, two to a row; with large text they go
+                     under each other (LargeText). -->
+                <Button
+                    android:id="@+id/details_used"
+                    style="@style/ReadyShelf.Button"
+                    android:text="@string/details_used" />
+
+                <LinearLayout
+                    android:id="@+id/details_actions_row1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/details_edit"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/details_edit" />
+
+                    <Button
+                        android:id="@+id/details_move"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_small"
+                        android:layout_weight="1"
+                        android:text="@string/details_move" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/details_actions_row2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/details_discarded"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/details_discarded" />
+
+                    <Button
+                        android:id="@+id/details_archive"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_small"
+                        android:layout_weight="1"
+                        android:text="@string/details_archive" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/ReadyShelf.SectionHeading"
+                    android:accessibilityHeading="true"
+                    android:text="@string/details_history"
+                    tools:targetApi="28" />
+
+                <TextView
+                    android:id="@+id/details_history_empty"
+                    style="@style/ReadyShelf.Body"
+                    android:text="@string/details_history_empty"
+                    android:visibility="gone" />
+
+                <!-- The history as a timeline, newest first (item_history.xml). -->
+                <LinearLayout
+                    android:id="@+id/details_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

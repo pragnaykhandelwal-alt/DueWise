@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A rounded, quiet panel, for example the cards of Settings and Batch details: white with a thin
+     light gray border, like the cards (B1, since 2026-10-23; light gray before, which would now be
+     the color of the notes inside it). (Until 2026-10-19 it was also Home's "Items need review"
+     box.) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="@dimen/panel_corner_radius" />
+    <solid android:color="?attr/colorSurfaceContainerLowest" />
+    <stroke
+        android:width="1dp"
+        android:color="?attr/colorOutlineVariant" />
+</shape>

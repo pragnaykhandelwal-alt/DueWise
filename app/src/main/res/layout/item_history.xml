@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One history entry, as a step of a timeline: a line in from the entry above, a dot, and a line
+     on to the entry below (BatchDetailsActivity hides the first entry's top line and the last
+     entry's bottom line), then the heading and the details. screenReaderFocusable makes TalkBack
+     read both lines together; the dot and lines are only decoration. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:screenReaderFocusable="true"
+    tools:targetApi="28">
+
+    <LinearLayout
+        android:layout_width="24dp"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:importantForAccessibility="noHideDescendants"
+        android:orientation="vertical">
+
+        <!-- 13 dp: the dot's middle is level with the middle of the heading's first line. -->
+        <View
+            android:id="@+id/history_line_top"
+            android:layout_width="2dp"
+            android:layout_height="13dp"
+            android:background="?attr/colorOutlineVariant" />
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/bg_circle"
+            android:backgroundTint="?attr/colorPrimary" />
+
+        <View
+            android:id="@+id/history_line_bottom"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="?attr/colorOutlineVariant" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_small"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/space_small">
+
+        <TextView
+            android:id="@+id/history_heading"
+            style="@style/ReadyShelf.Body"
+            android:textAppearance="?attr/textAppearanceTitleSmall"
+            tools:text="Edited: Oct 4, 2026, 3:15 PM" />
+
+        <TextView
+            android:id="@+id/history_details"
+            style="@style/ReadyShelf.Body"
+            tools:text="Quantity changed from 6 bars to 4 bars." />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A pine band right under a pine top bar (B1, the student's design, since 2026-10-23): behind
+     Home's tiles, and behind a status list's header in Inventory. It continues the bar's pine, and
+     its bottom corners are rounded, so the page shows below them. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners
+        android:bottomLeftRadius="@dimen/band_corner_radius"
+        android:bottomRightRadius="@dimen/band_corner_radius"
+        android:topLeftRadius="0dp"
+        android:topRightRadius="0dp" />
+    <solid android:color="@color/pine" />
+</shape>

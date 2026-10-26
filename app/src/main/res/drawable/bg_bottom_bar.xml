@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The background of a screen's bottom bar (style ReadyShelf.BottomBar): a thin line in the
+     outline color at the top, so the bar stands apart from the part of the screen that scrolls
+     above it, on the screen's own background color. The screen's padding for the navigation bar
+     is under the bar (ScreenSetup), in that same color, so there is no seam between them. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="?attr/colorOutlineVariant" />
+        </shape>
+    </item>
+    <item android:top="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="?android:attr/colorBackground" />
+        </shape>
+    </item>
+</layer-list>

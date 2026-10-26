@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The home-screen widget "Review list". It uses only views that home-screen widgets allow
+     (LinearLayout and TextView). It stays dark (the student's choice on 2026-10-19), although
+     the app is light since 2026-10-22. Its colors are fixed (values/colors.xml), because the
+     home screen draws the widget without DueWise's theme. The top line is the hourglass from the
+     student's logo and the
+     name. ReviewWidget sets the line and the tap; until then the line says "Open DueWise to see
+     the review list.". Text sizes are in sp, so they grow with the phone's font size. Both texts
+     shrink to fit (autoSize), so the whole line still shows in the 1-row widget with a very large
+     font size. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/space_medium"
+    android:paddingVertical="@dimen/space_small">
+
+    <!-- The name, with the hourglass before it. The hourglass is only decoration, so TalkBack
+         reads just "DueWise". The home screen draws widgets without AppCompat, so the plain
+         android:drawableStart is the one that works here; lint's AppCompat advice doesn't apply. -->
+    <TextView
+        android:id="@+id/widget_app_name"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:autoSizeMaxTextSize="14sp"
+        android:autoSizeMinTextSize="8sp"
+        android:autoSizeTextType="uniform"
+        android:drawableStart="@drawable/widget_hourglass"
+        android:drawablePadding="@dimen/space_small"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:text="@string/app_name"
+        android:textColor="@color/widget_text"
+        android:textStyle="bold"
+        tools:ignore="UseCompatTextViewDrawableXml" />
+
+    <TextView
+        android:id="@+id/widget_review_line"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1"
+        android:autoSizeMaxTextSize="16sp"
+        android:autoSizeMinTextSize="9sp"
+        android:autoSizeTextType="uniform"
+        android:text="@string/reminder_daily_text"
+        android:textColor="@color/widget_text" />
+</LinearLayout>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.inventory.InventoryActivity">
+
+    <!-- After a tap on a status tile on Home, the back arrow and "Inventory" give way to a home
+         icon (InventoryActivity.showHomeButton; since 2026-10-22, the student's choice). Since
+         2026-10-23 the bar is pine, like every screen's top bar (ReadyShelf.TopBar). -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationContentDescription="@string/navigate_back"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:title="@string/title_inventory" />
+
+    <!-- The screen scrolls under the floating "Add batch" button. It reaches the screen's sides
+         ("fullWidth"), so in landscape the status band does too; the parts tagged "insetSides" and
+         "insetSidesMargin" keep their contents clear of the camera cutout and the navigation bar
+         (ScreenSetup). -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:tag="fullWidth">
+
+        <!-- The filters scroll together with the list, so they never fill the whole
+             screen when the phone uses large text. -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/inventory_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- The bottom padding leaves room, so the last card can scroll above the button. -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/fab_clearance">
+
+                <!-- A status list's header (since 2026-10-23, the student's choice): when a status
+                     tile on Home opened this screen, a pine band under the top bar shows that
+                     status the way its tile does (item_status_tile.xml): the colored circle and
+                     icon, the count, and the word. It replaces the status's chip under the search
+                     box, follows a status chosen later in the filters, and goes away with
+                     "All statuses" (InventoryActivity). The band scrolls away, like Home's. -->
+                <LinearLayout
+                    android:id="@+id/inventory_status_band"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_pine_band"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/screen_padding"
+                    android:paddingTop="@dimen/space_large"
+                    android:paddingBottom="@dimen/screen_padding"
+                    android:tag="insetSides"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <include
+                        android:id="@+id/inventory_status_tile"
+                        layout="@layout/item_status_tile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <!-- Everything under the band, with the usual space around it. -->
+                <LinearLayout
+                    android:id="@+id/inventory_below_band"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/screen_padding"
+                    android:paddingTop="@dimen/screen_padding"
+                    android:tag="insetSides">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inventory_search_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/inventory_search"
+                        app:endIconMode="clear_text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inventory_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionSearch"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- "Filters" opens and closes the filters below it (MoreText). They start closed,
+                         also when a Home tile opened this screen, so the list starts near the top
+                         (since 2026-10-19, the student's choice). The chosen filters show as chips
+                         under it instead (inventory_applied_filters). -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/inventory_filters_toggle"
+                        style="@style/Widget.Material3.Button.TonalButton.Icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:text="@string/inventory_filters_show"
+                        app:icon="@drawable/ic_expand_more" />
+
+                    <!-- The filters are chips: one tap chooses a location, a category, or a status,
+                         and every choice is in view (the chips wrap onto more lines instead of
+                         scrolling sideways). Exactly one chip of a group is chosen; "All …" is the
+                         first. The chips are made in code (item_filter_chip.xml), because households
+                         add their own locations. TalkBack reads them like radio buttons. The labels
+                         are headings, so TalkBack can jump between the groups. -->
+                    <LinearLayout
+                        android:id="@+id/inventory_filters_panel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <TextView
+                            style="@style/ReadyShelf.FieldLabel"
+                            android:accessibilityHeading="true"
+                            android:text="@string/inventory_location"
+                            tools:targetApi="28" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/inventory_location_chips"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:selectionRequired="true"
+                            app:singleSelection="true" />
+
+                        <TextView
+                            style="@style/ReadyShelf.FieldLabel"
+                            android:accessibilityHeading="true"
+                            android:text="@string/inventory_category"
+                            tools:targetApi="28" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/inventory_category_chips"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:selectionRequired="true"
+                            app:singleSelection="true" />
+
+                        <!-- Home's status tiles open Inventory with one of these chosen. Both views
+                             are hidden when the date rules are missing or stopped, because then no
+                             batch has a status. -->
+                        <TextView
+                            android:id="@+id/inventory_status_heading"
+                            style="@style/ReadyShelf.FieldLabel"
+                            android:accessibilityHeading="true"
+                            android:text="@string/inventory_status"
+                            tools:targetApi="28" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/inventory_status_chips"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:selectionRequired="true"
+                            app:singleSelection="true" />
+
+                        <TextView
+                            style="@style/ReadyShelf.FieldLabel"
+                            android:accessibilityHeading="true"
+                            android:text="@string/inventory_date_order"
+                            tools:targetApi="28" />
+
+                        <!-- Date order: two buttons that work as one switch; exactly one is chosen.
+                             With large text they go under each other instead (InventoryActivity,
+                             LargeText), because buttons in this group keep their words on one line. -->
+                        <com.google.android.material.button.MaterialButtonToggleGroup
+                            android:id="@+id/inventory_order"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            app:selectionRequired="true"
+                            app:singleSelection="true">
+
+                            <Button
+                                android:id="@+id/inventory_order_soonest"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/order_soonest_first" />
+
+                            <Button
+                                android:id="@+id/inventory_order_latest"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/order_latest_first" />
+                        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/inventory_show_archived"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_small"
+                            android:minHeight="@dimen/touch_target"
+                            android:text="@string/inventory_show_archived"
+                            android:textAppearance="?attr/textAppearanceBodyLarge" />
+                    </LinearLayout>
+
+                    <!-- While the filters are closed: one chip for each filter that is not at its
+                         "All" choice (and "Latest first", "Archived batches shown"). A tap on a chip
+                         or its ✕ sets that filter back; with two or more, "Clear all" sets them all
+                         back. Made in code (InventoryActivity.showAppliedFilters). -->
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/inventory_applied_filters"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/inventory_status_message"
+                        style="@style/ReadyShelf.Notice"
+                        android:layout_marginTop="@dimen/space_medium"
+                        android:visibility="gone"
+                        tools:text="@string/inventory_status_note"
+                        tools:visibility="visible" />
+
+                    <!-- A polite live region: TalkBack reads the new count after a search or
+                         filter. -->
+                    <TextView
+                        android:id="@+id/inventory_count"
+                        style="@style/ReadyShelf.Body"
+                        android:layout_marginTop="@dimen/space_medium"
+                        android:accessibilityLiveRegion="polite"
+                        tools:text="Showing 3 of 10 batches" />
+
+                    <TextView
+                        android:id="@+id/inventory_empty"
+                        style="@style/ReadyShelf.Notice"
+                        android:visibility="gone"
+                        tools:text="@string/inventory_empty"
+                        tools:visibility="visible" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/inventory_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- The screen's main action (the student's choice on 2026-10-19; Home had one too until
+             2026-10-23, when Add batch became a tile there). Save messages appear above it
+             (Confirmations). It shrinks to a round "+" while the list
+             scrolls down, and always with large text (AddButton). Shrinking only hides the words
+             on screen: TalkBack still hears "Add batch". -->
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fab_add_batch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/space_medium"
+            android:tag="insetSidesMargin"
+            android:text="@string/inventory_add_batch"
+            app:icon="@drawable/ic_add" />
+    </FrameLayout>
+</LinearLayout>

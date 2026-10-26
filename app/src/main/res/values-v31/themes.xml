@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Android 12 and newer: the start-up screen shows the hourglass from the student's logo
+         (drawable/splash_hourglass.xml, pine and brass) on the app's light background, so it
+         matches the app and the logo at the top of Home. Older Android versions show the plain
+         light background. Until 2026-10-22 both were dark. -->
+    <style name="Theme.ReadyShelf" parent="Base.Theme.ReadyShelf">
+        <item name="android:windowSplashScreenBackground">@color/md_theme_background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/splash_hourglass</item>
+    </style>
+</resources>

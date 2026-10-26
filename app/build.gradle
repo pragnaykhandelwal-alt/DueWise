@@ -1,0 +1,85 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.room)
+}
+
+android {
+    namespace 'com.example.readyshelf'
+    compileSdk {
+        version = release(37)
+    }
+
+    // This module is Java-only. AGP 9 turns on Kotlin support by default; turning it
+    // off removes the Kotlin compile step and the automatic Kotlin standard library,
+    // and stops Kotlin source files from being compiled into the app.
+    enableKotlin = false
+
+    defaultConfig {
+        applicationId "com.example.readyshelf"
+        minSdk 26
+        targetSdk 37
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Tesseract and CameraX include native (C++) code for each CPU type. Keep only the CPU
+        // types of real phones (arm64-v8a, armeabi-v7a) and of the emulator (x86_64),
+        // so the app stays smaller.
+        ndk {
+            abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86_64'
+        }
+    }
+
+    buildTypes {
+        release {
+            optimization {
+                enable false
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+// The Room Gradle plugin saves the database schema as a JSON file in app/schemas.
+// Keep those files in Git: every later database version is checked against them.
+room {
+    schemaDirectory "$projectDir/schemas"
+}
+
+dependencies {
+    implementation libs.activity.ktx
+    implementation libs.appcompat
+    implementation libs.constraintlayout
+    implementation libs.material
+    implementation libs.recyclerview
+    // ViewModel and LiveData keep screen data when the phone rotates
+    // and update the screen when the database changes.
+    implementation libs.lifecycle.viewmodel
+    implementation libs.lifecycle.livedata
+    // Room 2.x local database, compiled by the Java annotation processor.
+    implementation libs.room.runtime
+    annotationProcessor libs.room.compiler
+    // Tesseract: reads text from label photos on the phone. No network code, no analytics.
+    implementation libs.tesseract4android
+    // WorkManager (the Java artifact): runs the daily reminder check in the background.
+    // It schedules work on the phone only; AndroidManifest.xml removes the permissions it doesn't need.
+    implementation libs.work.runtime
+    // CameraX: the in-app camera for label photos (preview, tap to focus, the light, and taking
+    // a photo into ReadyShelf's private folder). It sends nothing; AndroidManifest.xml still
+    // removes INTERNET and the network-state permission that a library asks for.
+    implementation libs.camera.core
+    implementation libs.camera.camera2
+    implementation libs.camera.lifecycle
+    implementation libs.camera.view
+    // Only for compiling: javac (JDK 25) reads CameraX's type annotations, which name a class from
+    // this library, but CameraX lists it for run time only. The app already ships this version
+    // (through androidx.core and CameraX), so compileOnly changes nothing inside the app.
+    compileOnly libs.concurrent.futures
+    testImplementation libs.junit
+    androidTestImplementation libs.espresso.core
+    androidTestImplementation libs.ext.junit
+}

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The swap picture, on Home's swap card and on the Review swap screen (SwapDiagram):
+       [Earthquake kit] → [Pantry]          6 bars · Best by: 1 Nov 2026 · for review
+       [Pantry] → [Earthquake kit]          6 bars · Best by: 9 Jun 2027
+     TalkBack reads the two full sentences instead (the root's spoken label), so the parts
+     inside are hidden from it. Colors since 2026-10-23 (B1): light gray places with a gray icon
+     (SwapDiagram) and dark words, lighter gray arrows, gray details, and "for review" in dark
+     brass (SwapDiagram). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swap_diagram"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:importantForAccessibility="yes"
+    android:orientation="vertical">
+
+    <!-- What leaves the kit, for review in the pantry -->
+    <LinearLayout
+        android:id="@+id/diagram_out_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:importantForAccessibility="noHideDescendants"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/diagram_out_from"
+            style="@style/ReadyShelf.PlacePill"
+            tools:text="Earthquake kit" />
+
+        <ImageView
+            android:id="@+id/diagram_out_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginHorizontal="@dimen/space_small"
+            android:src="@drawable/ic_arrow_forward"
+            app:tint="?attr/colorOutline"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/diagram_out_to"
+            style="@style/ReadyShelf.PlacePill"
+            tools:text="Pantry" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/diagram_out_details"
+        style="@style/ReadyShelf.Body"
+        android:layout_marginTop="4dp"
+        android:importantForAccessibility="no"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        tools:text="6 bars · Best by: 1 Nov 2026 · for review" />
+
+    <!-- What takes its place in the kit -->
+    <LinearLayout
+        android:id="@+id/diagram_in_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
+        android:importantForAccessibility="noHideDescendants"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/diagram_in_from"
+            style="@style/ReadyShelf.PlacePill"
+            tools:text="Pantry" />
+
+        <ImageView
+            android:id="@+id/diagram_in_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginHorizontal="@dimen/space_small"
+            android:src="@drawable/ic_arrow_forward"
+            app:tint="?attr/colorOutline"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/diagram_in_to"
+            style="@style/ReadyShelf.PlacePill"
+            tools:text="Earthquake kit" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/diagram_in_details"
+        style="@style/ReadyShelf.Body"
+        android:layout_marginTop="4dp"
+        android:importantForAccessibility="no"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        tools:text="6 bars · Best by: 9 Jun 2027" />
+</LinearLayout>

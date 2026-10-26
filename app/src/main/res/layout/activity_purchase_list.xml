@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.purchase.PurchaseListActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationContentDescription="@string/navigate_back"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:title="@string/title_purchase_list" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/screen_padding">
+
+            <TextView
+                style="@style/ReadyShelf.Body"
+                android:text="@string/purchase_intro" />
+
+            <!-- Why the last Add, Change, or Remove was not made. A saved change shows as a short
+                 message at the bottom instead (Confirmations). A polite live region. -->
+            <TextView
+                android:id="@+id/purchase_result"
+                style="@style/ReadyShelf.Notice"
+                android:layout_marginTop="@dimen/space_medium"
+                android:accessibilityLiveRegion="polite"
+                android:visibility="gone"
+                tools:text="@string/purchase_change_failed"
+                tools:visibility="visible" />
+
+            <!-- ===== Items the household plans to buy ===== -->
+            <TextView
+                style="@style/ReadyShelf.SectionHeading"
+                android:accessibilityHeading="true"
+                android:text="@string/purchase_list_heading"
+                tools:targetApi="28" />
+
+            <!-- The section notes are hidden until the first data arrives (MessageText shows
+                 them), so no empty boxes flash while the screen opens. -->
+            <TextView
+                android:id="@+id/purchase_list_message"
+                style="@style/ReadyShelf.Notice"
+                android:layout_marginTop="0dp"
+                android:visibility="gone"
+                tools:text="@string/purchase_list_empty"
+                tools:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/purchase_entries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <!-- ===== Replacement needs: kit items the swaps don't cover, and expired items the
+                 household buys again, in any place. Each card can add its product to the list
+                 ("Add to purchase list"). Until 2026-10-22 a "Suggestions" section was here; the
+                 student removed it. ===== -->
+            <TextView
+                style="@style/ReadyShelf.SectionHeading"
+                android:accessibilityHeading="true"
+                android:text="@string/purchase_needs_heading"
+                tools:targetApi="28" />
+
+            <TextView
+                android:id="@+id/purchase_message"
+                style="@style/ReadyShelf.Notice"
+                android:layout_marginTop="0dp"
+                android:visibility="gone"
+                tools:text="@string/rules_not_ready_purchase"
+                tools:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/purchase_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- ===== Renewal (since 2026-10-24, the student's request): documents and
+                 subscriptions dated today or earlier, with something left. Each card has
+                 "Renewed" (a new date) and "Discard" (recorded as discarded, then archived). ===== -->
+            <TextView
+                style="@style/ReadyShelf.SectionHeading"
+                android:accessibilityHeading="true"
+                android:text="@string/purchase_renewal_heading"
+                tools:targetApi="28" />
+
+            <TextView
+                android:id="@+id/purchase_renewal_message"
+                style="@style/ReadyShelf.Notice"
+                android:layout_marginTop="0dp"
+                android:visibility="gone"
+                tools:text="@string/renewal_empty"
+                tools:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/purchase_renewals"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

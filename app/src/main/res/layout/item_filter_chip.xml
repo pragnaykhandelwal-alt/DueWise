@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One choice chip: a filter on Inventory (for example "Pantry" or "All categories"), or a
+     one-tap choice on the batch form (for example "Documents" or "Best by"). The screen sets its
+     words and what it stands for. A chosen chip shows a check mark and a fill, so the choice is
+     not shown by color alone. The batch form's category chips have an icon. Material's filter
+     chip doesn't tint it, so it would keep the icon file's own white, which almost vanished on
+     the light chips. Since 2026-10-22 it has the gray of the app's other outline icons. -->
+<com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.Material3.Chip.Filter"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?attr/textAppearanceLabelLarge"
+    app:chipIconTint="?attr/colorOnSurfaceVariant" />

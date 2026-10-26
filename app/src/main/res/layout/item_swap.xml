@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One proposed swap: the product, the swap picture with both moves and both dates
+     (view_swap_diagram.xml; TalkBack reads the two full sentences), and a button to review it.
+     Nothing moves from this card; "Review swap" opens the screen with "Confirm swap". Since
+     2026-10-23 (B1) the card is white with a thin border (ReadyShelf.Card) and the button is a
+     filled pine one (a light gray tonal button before). -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="?attr/materialCardViewOutlinedStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/space_small">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/space_medium">
+
+        <TextView
+            android:id="@+id/swap_product"
+            style="@style/ReadyShelf.Body"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            tools:text="Canned beans — Low sodium · 15 oz · unit: cans" />
+
+        <TextView
+            android:id="@+id/swap_sample"
+            style="@style/ReadyShelf.SampleTag"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <include
+            layout="@layout/view_swap_diagram"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/swap_review"
+            style="@style/ReadyShelf.Button"
+            android:layout_marginTop="@dimen/space_medium"
+            android:text="@string/swap_review_button" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

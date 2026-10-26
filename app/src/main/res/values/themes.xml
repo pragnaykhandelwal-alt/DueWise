@@ -1,0 +1,71 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme: Material 3, always light since 2026-10-22, with the colors of the
+         student's design B1, "Brass highlights", since 2026-10-23 (values/colors.xml). It stays
+         light whatever the phone's own light or dark setting is. The app never turns on Material's
+         dynamic color, so the phone's wallpaper never replaces these colors. From 2026-10-22 the
+         colors were "Graphite light"; until then the app was always dark (the student's choice on
+         2026-10-18), with a blue scheme. -->
+    <style name="Base.Theme.ReadyShelf" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/md_theme_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer</item>
+        <item name="colorPrimaryInverse">@color/md_theme_inversePrimary</item>
+        <item name="colorSecondary">@color/md_theme_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_onTertiaryContainer</item>
+        <item name="colorError">@color/md_theme_error</item>
+        <item name="colorOnError">@color/md_theme_onError</item>
+        <item name="colorErrorContainer">@color/md_theme_errorContainer</item>
+        <item name="colorOnErrorContainer">@color/md_theme_onErrorContainer</item>
+        <item name="android:colorBackground">@color/md_theme_background</item>
+        <item name="colorOnBackground">@color/md_theme_onBackground</item>
+        <item name="colorSurface">@color/md_theme_surface</item>
+        <item name="colorOnSurface">@color/md_theme_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_outline</item>
+        <item name="colorOutlineVariant">@color/md_theme_outlineVariant</item>
+        <item name="colorSurfaceInverse">@color/md_theme_inverseSurface</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_inverseOnSurface</item>
+        <item name="colorSurfaceDim">@color/md_theme_surfaceDim</item>
+        <item name="colorSurfaceBright">@color/md_theme_surfaceBright</item>
+        <item name="colorSurfaceContainerLowest">@color/md_theme_surfaceContainerLowest</item>
+        <item name="colorSurfaceContainerLow">@color/md_theme_surfaceContainerLow</item>
+        <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
+        <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
+        <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
+        <!-- Text that sets no color of its own: the scheme's grays, instead of Material's own
+             baseline grays, which have a slight purple tint. -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColorTertiary">@color/text_secondary</item>
+        <!-- Selected text in light brass, not Material's pine (a sage gray over white). -->
+        <item name="android:textColorHighlight">@color/text_highlight</item>
+        <!-- Material mixes the main color (pine) into a raised surface that has the page's color.
+             No screen has one now; this makes sure no gray ever turns green. -->
+        <item name="elevationOverlayEnabled">false</item>
+        <!-- Every card is white with a thin border, like the swap card in B1. -->
+        <item name="materialCardViewOutlinedStyle">@style/ReadyShelf.Card</item>
+        <!-- Every screen's top bar is pine, like Home's (styles.xml). -->
+        <item name="toolbarStyle">@style/ReadyShelf.TopBar</item>
+        <!-- "Add batch" in brass, as in B1. -->
+        <item name="extendedFloatingActionButtonStyle">@style/ReadyShelf.AddButton</item>
+    </style>
+
+    <style name="Theme.ReadyShelf" parent="Base.Theme.ReadyShelf" />
+
+    <!-- Only inside the pine top bars (ReadyShelf.TopBar): light icons, and a light ripple when the
+         back arrow or home icon is pressed. Material's own toolbar overlay is private and would
+         give dark ripples. -->
+    <style name="ThemeOverlay.ReadyShelf.TopBar" parent="">
+        <item name="colorControlNormal">?attr/colorOnPrimary</item>
+        <item name="colorControlHighlight">@color/top_bar_ripple</item>
+        <item name="android:colorControlHighlight">@color/top_bar_ripple</item>
+    </style>
+</resources>

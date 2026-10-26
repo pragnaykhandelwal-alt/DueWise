@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Space around the content of every screen -->
+    <dimen name="screen_padding">16dp</dimen>
+    <dimen name="space_small">8dp</dimen>
+    <dimen name="space_medium">16dp</dimen>
+    <dimen name="space_large">24dp</dimen>
+    <!-- 48dp is the smallest comfortable touch target (Android accessibility guidance) -->
+    <dimen name="touch_target">48dp</dimen>
+    <!-- List rows are taller, and the whole row can be tapped -->
+    <dimen name="row_min_height">72dp</dimen>
+    <!-- Status labels and tags: rounded corners, and the outline of "Date needs review" -->
+    <dimen name="label_corner_radius">8dp</dimen>
+    <!-- The space between a warning or error box's sign and its words -->
+    <dimen name="notice_icon_padding">12dp</dimen>
+    <!-- Home's tiles, and the quiet panels (Settings, Batch details) -->
+    <dimen name="tile_corner_radius">12dp</dimen>
+    <dimen name="panel_corner_radius">16dp</dimen>
+    <!-- The bottom corners of the pine bands under the top bar: Home's tiles and a status list's
+         header (B1's mock measures 26 to 28 dp; 28 dp is Material's "extra large" corner) -->
+    <dimen name="band_corner_radius">28dp</dimen>
+    <dimen name="label_outline_width">1dp</dimen>
+    <!-- The round category icon at the start of a batch card -->
+    <dimen name="category_icon_size">40dp</dimen>
+    <dimen name="category_icon_padding">8dp</dimen>
+    <!-- The home-screen widget's corners. Android 12 and newer: values-v31/dimens.xml. -->
+    <dimen name="widget_corner_radius">16dp</dimen>
+    <!-- Room under a screen's content, so the last card can scroll above the floating
+         "Add batch" button: the button is 56 dp tall and 16 dp from the edge, plus 16 dp. -->
+    <dimen name="fab_clearance">88dp</dimen>
+</resources>

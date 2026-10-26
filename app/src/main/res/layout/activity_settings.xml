@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings (in cards since 2026-10-19, the student's choice): Reminders and Planning, each a
+     quiet panel with an icon and a title, and one main button. Reminders comes first since
+     2026-10-19 (later that day), because the daily reminder is the setting used most: Android's
+     settings guidelines put frequently used settings at the top. Every card shows only short texts
+     (the student's request that evening); longer ones are under "More about this". The Sample data
+     card was removed on 2026-10-22 (the student's request). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.settings.SettingsActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationContentDescription="@string/navigate_back"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:title="@string/title_settings" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/screen_padding">
+
+            <!-- Reminders. The daily reminder and "Show reminder now" need DatePolicy.
+                 The switch comes first, right under the title, and then what it does. -->
+            <LinearLayout
+                style="@style/ReadyShelf.Panel"
+                android:layout_marginTop="0dp">
+
+                <TextView
+                    style="@style/ReadyShelf.PanelTitle"
+                    android:accessibilityHeading="true"
+                    android:text="@string/settings_reminders"
+                    app:drawableStartCompat="@drawable/ic_bell"
+                    tools:targetApi="28" />
+
+                <!-- saveEnabled="false": the switch always shows the saved choice, so restoring the
+                     screen after a rotation can't flip it and ask for permission again. -->
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/settings_reminders"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:minHeight="@dimen/touch_target"
+                    android:saveEnabled="false"
+                    android:text="@string/settings_reminders_switch"
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+                <!-- Normal text color, so the reason stays readable next to the dimmed switch. -->
+                <TextView
+                    android:id="@+id/settings_reminders_off"
+                    style="@style/ReadyShelf.Notice"
+                    android:text="@string/settings_reminders_off"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <!-- What the switch does, as its supporting text (a smaller, quieter style), and the
+                     last reminder in the same style right under it. Short since 2026-10-19 (the
+                     student's request); the longer texts are under "More about this" below. -->
+                <TextView
+                    style="@style/ReadyShelf.Body"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/settings_reminders_summary"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                <TextView
+                    android:id="@+id/settings_last_reminder"
+                    style="@style/ReadyShelf.Body"
+                    android:layout_marginTop="2dp"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    tools:text="@string/settings_last_reminder_none" />
+
+                <!-- Whether Android allows DueWise's notifications, in a small box, with the way to
+                     Android's settings right under it. The box is a warning (NoticeLook) only while
+                     the daily reminder is on but can't appear; otherwise it is a quiet note. Read
+                     again when the screen comes back, for example from Android's settings. -->
+                <TextView
+                    android:id="@+id/settings_notifications_status"
+                    style="@style/ReadyShelf.Notice"
+                    android:accessibilityLiveRegion="polite"
+                    tools:text="@string/settings_notifications_allowed" />
+
+                <Button
+                    android:id="@+id/settings_open_notification_settings"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/settings_open_notification_settings" />
+
+                <!-- The card's main button: the reminder with the household's items, right away
+                     (until 2026-10-23, "Send a test reminder"). What it does is under "More about
+                     this". -->
+                <Button
+                    android:id="@+id/settings_show_reminder"
+                    style="@style/ReadyShelf.Button.Tonal"
+                    android:text="@string/settings_show_reminder" />
+
+                <!-- "More about this", at the end of the card: how the reminder looks, the lock
+                     screen, why it can come late, how to allow notifications, and what "Show
+                     reminder now" does (SettingsActivity, MoreText). -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/settings_reminders_more_toggle"
+                    style="@style/ReadyShelf.MoreToggle" />
+
+                <LinearLayout
+                    android:id="@+id/settings_reminders_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <TextView
+                        style="@style/ReadyShelf.Body"
+                        android:text="@string/settings_reminders_intro" />
+
+                    <TextView
+                        style="@style/ReadyShelf.Body"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:text="@string/settings_reminders_lock_screen" />
+
+                    <TextView
+                        style="@style/ReadyShelf.Body"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:text="@string/settings_reminders_delay" />
+
+                    <TextView
+                        style="@style/ReadyShelf.Body"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:text="@string/settings_reminders_how" />
+
+                    <TextView
+                        style="@style/ReadyShelf.Body"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:text="@string/settings_show_reminder_note" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Planning settings: the near-date days and the replacement days -->
+            <LinearLayout style="@style/ReadyShelf.Panel">
+
+                <TextView
+                    style="@style/ReadyShelf.PanelTitle"
+                    android:accessibilityHeading="true"
+                    android:text="@string/settings_thresholds"
+                    app:drawableStartCompat="@drawable/ic_tune"
+                    tools:targetApi="28" />
+
+                <TextView
+                    style="@style/ReadyShelf.Body"
+                    android:text="@string/settings_thresholds_intro" />
+
+                <TextView
+                    android:id="@+id/settings_thresholds_note"
+                    style="@style/ReadyShelf.Notice"
+                    android:text="@string/settings_thresholds_not_used_yet"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <!-- Shown while sample data is open: these numbers are the sample data's own. -->
+                <TextView
+                    android:id="@+id/settings_thresholds_sample_note"
+                    style="@style/ReadyShelf.Notice"
+                    android:text="@string/settings_thresholds_sample"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <!-- The keyboard's key says "Next" here and "Done" on the second number; Done saves,
+                     like the button below (SettingsActivity). -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/settings_near_date_days_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:hint="@string/settings_near_date_days"
+                    app:helperText="@string/settings_near_date_days_helper"
+                    app:helperTextEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/settings_near_date_days"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="3" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/settings_replacement_days_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:hint="@string/settings_replacement_days"
+                    app:helperText="@string/settings_replacement_days_helper"
+                    app:helperTextEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/settings_replacement_days"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLength="4" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- The card's main action. -->
+                <Button
+                    android:id="@+id/settings_save_thresholds"
+                    style="@style/ReadyShelf.Button"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:text="@string/settings_save_thresholds" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

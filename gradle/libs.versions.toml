@@ -1,0 +1,52 @@
+# Versions were checked against official release pages on 2026-10-04.
+# Before changing a version, check its official page and update TOOLCHAIN.md.
+[versions]
+agp = "9.4.1"
+junit = "4.13.2"
+junitVersion = "1.3.0"
+espressoCore = "3.7.0"
+appcompat = "1.8.0"
+material = "1.14.0"
+activityKtx = "1.13.0"
+constraintlayout = "2.2.2"
+# Room 2.x is the last Room line that supports Java annotation processing.
+room = "2.8.5"
+lifecycle = "2.11.0"
+recyclerview = "1.4.0"
+# On-device text recognition (OCR) for label photos. Hosted only on JitPack (see settings.gradle).
+tesseract4android = "4.9.0"
+# The daily reminder check in the background. Checked 2026-10-11; see TOOLCHAIN.md.
+work = "2.12.0"
+# CameraX: the in-app camera for label photos. Latest stable, checked 2026-10-12; see TOOLCHAIN.md.
+camerax = "1.6.2"
+# Compile-only, for CameraX (see app/build.gradle and TOOLCHAIN.md). The same version the app
+# already ships through androidx.core and CameraX, so nothing in the app changes. Lint suggests
+# 1.3.0, the latest stable; that would compile against a newer version than the app ships.
+#noinspection GradleDependency
+concurrentFutures = "1.1.0"
+
+[libraries]
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycle" }
+lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata", version.ref = "lifecycle" }
+recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+tesseract4android = { group = "cz.adaptech.tesseract4android", name = "tesseract4android", version.ref = "tesseract4android" }
+work-runtime = { group = "androidx.work", name = "work-runtime", version.ref = "work" }
+camera-core = { group = "androidx.camera", name = "camera-core", version.ref = "camerax" }
+camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "camerax" }
+camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "camerax" }
+camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "camerax" }
+concurrent-futures = { group = "androidx.concurrent", name = "concurrent-futures", version.ref = "concurrentFutures" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+room = { id = "androidx.room", version.ref = "room" }
+

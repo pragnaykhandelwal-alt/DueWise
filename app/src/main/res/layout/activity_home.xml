@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.home.HomeActivity">
+
+    <!-- Home shows the student's DueWise logo (hourglass and name, one image) instead of the
+         plain title; TalkBack reads it as "DueWise". The other screens keep plain titles.
+         Since 2026-10-23 (the student's design B1) the bar is pine like every screen's top bar
+         (ReadyShelf.TopBar), with the logo's light colors, and it reaches up behind the status
+         bar, whose icons are light (ScreenSetup). The pine continues as the band behind the tiles
+         below. -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:logo="@drawable/logo_duewise_horizontal"
+        app:logoDescription="@string/app_name" />
+
+    <!-- The screen scrolls. It reaches the screen's sides ("fullWidth"), so in landscape the band
+         does too; the parts tagged "insetSides" keep their contents clear of the camera cutout and
+         the navigation bar (ScreenSetup). Since 2026-10-23 (the student's choice) nothing floats
+         over it: "Add batch" is the grid's last tile, not a floating button. -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/home_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:tag="fullWidth">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/screen_padding">
+
+            <!-- All of Home's tiles, in one grid of two columns (the student's choice on
+                 2026-10-19): first how many batches need review, one tile per status
+                 (item_status_tile.xml), then Inventory, Purchase list, Settings, and Add batch
+                 (item_action_tile.xml). HomeActivity fills it, one row of two at a time (one with
+                 large text). measureWithLargestChild makes every row as tall as the tallest one
+                 (the rows have a weight), and two tiles in a row share it equally, so every icon
+                 sits in the same two columns.
+                 Since 2026-10-23 (the student's choice) "Add batch" is the last tile, in place of
+                 the floating button. When it is alone in its row, it fills the row, so the grid
+                 never has an empty cell.
+                 Since 2026-10-22 (the student's choice) there is no "Items need review" heading
+                 above the grid, no "Show the review list" tile, and no review lists on Home: each
+                 status tile opens Inventory with its batches, medicine too.
+                 Since 2026-10-23 (B1) the grid is the pine band under the top bar, from edge to
+                 edge, with rounded bottom corners (bg_pine_band). It scrolls away with the tiles;
+                 the pine top bar stays. Its padding keeps the tiles where they were: 24 dp under
+                 the top bar and 16 dp from the sides. -->
+            <LinearLayout
+                android:id="@+id/home_tiles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_pine_band"
+                android:measureWithLargestChild="true"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/screen_padding"
+                android:paddingTop="@dimen/space_large"
+                android:paddingBottom="@dimen/screen_padding"
+                android:tag="insetSides" />
+
+            <!-- Everything under the band, with the usual space at the sides. -->
+            <LinearLayout
+                android:id="@+id/home_below_band"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/screen_padding"
+                android:tag="insetSides">
+
+                <!-- The notices come after the grid, so the tiles stay at the top. -->
+                <!-- What the status tiles can't say: "Nothing needs review right now.", or why
+                     there are none (the date rules are missing or stopped with an error).
+                     HomeViewModel chooses it; MessageText shows it only when there is one. -->
+                <TextView
+                    android:id="@+id/home_review_message"
+                    style="@style/ReadyShelf.Notice"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:visibility="gone"
+                    tools:text="@string/home_needs_review_empty"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/home_sample_banner"
+                    style="@style/ReadyShelf.Notice"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:background="?attr/colorTertiaryContainer"
+                    android:text="@string/sample_banner"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/home_empty"
+                    style="@style/ReadyShelf.Notice"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:text="@string/home_empty"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <TextView
+                    style="@style/ReadyShelf.SectionHeading"
+                    android:accessibilityHeading="true"
+                    android:text="@string/home_swaps"
+                    tools:targetApi="28" />
+
+                <!-- Hidden until the first data arrives (MessageText shows it), so no empty box
+                     flashes while Home opens. With swap cards it stays hidden: no note above them
+                     (the student's choice on 2026-10-21). -->
+                <TextView
+                    android:id="@+id/home_swaps_message"
+                    style="@style/ReadyShelf.Notice"
+                    android:visibility="gone"
+                    tools:text="@string/rules_not_ready_swaps"
+                    tools:visibility="visible" />
+
+                <!-- Only while swaps are shown: how they work folds under "More about this"
+                     (HomeActivity, MoreText). The planning-choice sentence is on Review swap. -->
+                <LinearLayout
+                    android:id="@+id/home_swaps_more_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/home_swaps_more_toggle"
+                        style="@style/ReadyShelf.MoreToggle" />
+
+                    <TextView
+                        android:id="@+id/home_swaps_more"
+                        style="@style/ReadyShelf.Body"
+                        android:text="@string/home_swaps_more"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/home_swaps_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

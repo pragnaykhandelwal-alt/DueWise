@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The Add/Edit batch form. The kind of item comes first, because it decides what else the form
+     asks. Choices are chips (one tap, and they wrap with large text); BatchEditActivity adds them
+     and keeps them in step with the ViewModel. Since 2026-10-22 the form starts shorter: the label
+     type is one line with "Change", and "What is printed?" stays folded until it is needed. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.batch.BatchEditActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationContentDescription="@string/navigate_back"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:title="@string/title_add_batch" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/edit_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/screen_padding">
+
+            <TextView
+                android:id="@+id/edit_message"
+                style="@style/ReadyShelf.Notice.Error"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="@dimen/space_small"
+                android:visibility="gone"
+                tools:text="@string/form_missing"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/edit_sample_note"
+                style="@style/ReadyShelf.SampleTag"
+                android:layout_marginBottom="@dimen/space_small"
+                android:text="@string/form_sample_note"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <!-- Recording a bought item: which purchase-list item this is. -->
+            <TextView
+                android:id="@+id/edit_purchase_note"
+                style="@style/ReadyShelf.Notice"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="@dimen/space_small"
+                android:visibility="gone"
+                tools:text="@string/form_purchase_note"
+                tools:visibility="visible" />
+
+            <!-- The form. It is hidden while the review is shown. -->
+            <LinearLayout
+                android:id="@+id/edit_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- ===== What kind of item? One chip per category, each with its icon. ===== -->
+                <TextView
+                    style="@style/ReadyShelf.SectionHeading"
+                    android:layout_marginTop="0dp"
+                    android:accessibilityHeading="true"
+                    android:text="@string/form_category_heading"
+                    tools:targetApi="28" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/edit_category_chips"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:selectionRequired="true"
+                    app:singleSelection="true" />
+
+                <TextView
+                    android:id="@+id/edit_category_note"
+                    style="@style/ReadyShelf.PhotoNote"
+                    android:visibility="gone"
+                    tools:text="From the photo (found “NUTRITION FACTS”). Check it before saving."
+                    tools:visibility="visible" />
+
+                <!-- Label photos: one button, with no heading (since 2026-10-22). Shown only when
+                     adding a batch (not when editing, and not for a bought item from the purchase
+                     list). The photos open on their own screen. Hidden since 2026-10-23
+                     (LABEL_PHOTOS_SHOWN in BatchEditActivity), so the preview hides it too. -->
+                <LinearLayout
+                    android:id="@+id/scan_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <Button
+                        android:id="@+id/scan_take_photos"
+                        style="@style/ReadyShelf.Button.Tonal"
+                        android:text="@string/scan_take_photos" />
+
+                    <!-- A polite live region: TalkBack reads what the photos gave the form. -->
+                    <TextView
+                        android:id="@+id/scan_status"
+                        style="@style/ReadyShelf.Notice"
+                        android:accessibilityLiveRegion="polite"
+                        android:visibility="gone"
+                        tools:text="@string/scan_date_not_chosen"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/scan_names_heading"
+                        style="@style/ReadyShelf.FieldLabel"
+                        android:text="@string/scan_names_heading"
+                        android:visibility="gone" />
+
+                    <!-- One button per line that could be the name; added in BatchEditActivity. -->
+                    <LinearLayout
+                        android:id="@+id/scan_names"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </LinearLayout>
+
+                <!-- ===== Product: one box that finds the household's products, or a new one ===== -->
+                <TextView
+                    style="@style/ReadyShelf.SectionHeading"
+                    android:accessibilityHeading="true"
+                    android:text="@string/form_product_heading"
+                    tools:targetApi="28" />
+
+                <LinearLayout
+                    android:id="@+id/edit_existing_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Searchable list of products. Each choice shows its variant,
+                         package size, and unit before it is chosen. -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/edit_product_layout"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/form_product_choose"
+                        app:helperText="@string/form_product_choose_helper"
+                        app:helperTextEnabled="true">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/edit_product"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:completionThreshold="1"
+                            android:inputType="text"
+                            android:maxLength="200" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- The chosen product's variant, package size, and unit. -->
+                    <TextView
+                        android:id="@+id/edit_product_facts"
+                        style="@style/ReadyShelf.Body"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:accessibilityLiveRegion="polite"
+                        android:visibility="gone"
+                        tools:text="Variant: Low sodium. Package size: 15 oz. Unit: cans."
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/edit_product_none_yet"
+                        style="@style/ReadyShelf.Notice"
+                        android:text="@string/form_product_none_yet"
+                        android:visibility="gone" />
+
+                    <!-- "New product", or "Add “Rice” as a new product" while the typed name
+                         is not one of the household's products. -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/edit_product_add_new"
+                        style="@style/Widget.Material3.Button.TextButton.Icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/form_product_new"
+                        app:icon="@drawable/ic_add" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/edit_new_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/edit_name_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/form_product_name"
+                        app:helperText="@string/form_product_name_helper"
+                        app:helperTextEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textCapSentences"
+                            android:maxLength="60" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- The unit, with one-tap choices for the category below it. Not asked for
+                         a new document or subscription, which gets its unit by itself. -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/edit_unit_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:hint="@string/form_unit"
+                        app:helperText="@string/form_unit_helper"
+                        app:helperTextEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_unit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:maxLength="30" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/edit_unit_chips"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <!-- A new product has only a name and a unit (since 2026-10-22, the student's
+                         choice): no variant or package size. Older products keep theirs. -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/edit_product_choose_existing"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/form_product_choose_existing" />
+                </LinearLayout>
+
+                <!-- ===== Where and how many ===== -->
+                <TextView
+                    android:id="@+id/edit_place_heading"
+                    style="@style/ReadyShelf.SectionHeading"
+                    android:accessibilityHeading="true"
+                    android:text="@string/form_place_heading"
+                    tools:targetApi="28" />
+
+                <!-- Choosing a location: only when adding. -->
+                <LinearLayout
+                    android:id="@+id/edit_location_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/ReadyShelf.FieldLabel"
+                        android:layout_marginTop="0dp"
+                        android:accessibilityHeading="true"
+                        android:text="@string/form_location"
+                        tools:targetApi="28" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/edit_location_chips"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:selectionRequired="true"
+                        app:singleSelection="true" />
+
+                    <TextView
+                        android:id="@+id/edit_location_error"
+                        style="@style/ReadyShelf.FieldError"
+                        android:text="@string/error_no_location" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/edit_new_location"
+                        style="@style/Widget.Material3.Button.TextButton.Icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/form_new_location"
+                        app:icon="@drawable/ic_add" />
+                </LinearLayout>
+
+                <!-- When editing, the location only changes with Move. -->
+                <TextView
+                    android:id="@+id/edit_location_text"
+                    style="@style/ReadyShelf.Body"
+                    android:visibility="gone"
+                    tools:text="Location: Pantry. To change it, use “Move” on the batch details screen." />
+
+                <!-- The quantity, with one less and one more. Not asked for a new document or
+                     subscription: edit_one_item_note says what is saved instead. -->
+                <LinearLayout
+                    android:id="@+id/edit_quantity_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/edit_quantity_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/form_quantity"
+                        app:helperText="@string/form_quantity_helper"
+                        app:helperTextEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_quantity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:maxLength="4" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/edit_quantity_less"
+                        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_small"
+                        android:layout_marginTop="4dp"
+                        android:contentDescription="@string/form_quantity_less"
+                        android:minWidth="@dimen/touch_target"
+                        android:minHeight="@dimen/touch_target"
+                        app:icon="@drawable/ic_remove" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/edit_quantity_more"
+                        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="4dp"
+                        android:contentDescription="@string/form_quantity_more"
+                        android:minWidth="@dimen/touch_target"
+                        android:minHeight="@dimen/touch_target"
+                        app:icon="@drawable/ic_add" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/edit_one_item_note"
+                    style="@style/ReadyShelf.Body"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:visibility="gone"
+                    tools:text="Saved as 1 document."
+                    tools:visibility="visible" />
+
+                <!-- ===== Date ===== -->
+                <TextView
+                    android:id="@+id/edit_date_heading"
+                    style="@style/ReadyShelf.SectionHeading"
+                    android:accessibilityHeading="true"
+                    android:text="@string/form_date_heading"
+                    tools:targetApi="28" />
+
+                <!-- The label type in one line (since 2026-10-22). It follows the category until
+                     the household chooses one. "Change" shows the chips below in its place. -->
+                <LinearLayout
+                    android:id="@+id/edit_date_label_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/edit_date_label_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAppearance="?attr/textAppearanceBodyLarge"
+                        tools:text="Label type: Best by" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/edit_date_label_change"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_small"
+                        android:contentDescription="@string/form_date_label_change_description"
+                        android:text="@string/form_date_label_change" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/edit_date_label_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <TextView
+                        style="@style/ReadyShelf.FieldLabel"
+                        android:layout_marginTop="0dp"
+                        android:accessibilityHeading="true"
+                        android:text="@string/form_date_label"
+                        tools:targetApi="28" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/edit_date_label_chips"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:selectionRequired="true"
+                        app:singleSelection="true" />
+                </LinearLayout>
+
+                <!-- "What is printed?" Folded until "No full date on the package?" (at the end of
+                     the date part) is tapped, and open by itself whenever the date isn't a full
+                     date: a label photo's, an edited batch's, or a missing one at "Review and save". -->
+                <LinearLayout
+                    android:id="@+id/edit_date_kind_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/edit_date_kind_heading"
+                        style="@style/ReadyShelf.FieldLabel"
+                        android:accessibilityHeading="true"
+                        android:text="@string/form_date_kind"
+                        tools:targetApi="28" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/edit_date_kind_chips"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:selectionRequired="true"
+                        app:singleSelection="true" />
+
+                    <!-- Recording a bought item: why "No date" is turned off. -->
+                    <TextView
+                        android:id="@+id/edit_date_none_note"
+                        style="@style/ReadyShelf.Body"
+                        android:visibility="gone"
+                        android:text="@string/form_date_none_purchase"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/edit_date_kind_error"
+                        style="@style/ReadyShelf.FieldError"
+                        android:text="@string/error_purchase_date_required" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/edit_complete_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Shows the chosen date, or "Choose date"; a tap opens the date picker.
+                         A polite live region: TalkBack reads the new date after it changes. -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/edit_choose_date"
+                        style="@style/ReadyShelf.Button.Outlined"
+                        android:accessibilityLiveRegion="polite"
+                        android:text="@string/form_choose_date"
+                        app:icon="@drawable/ic_calendar"
+                        app:iconGravity="textStart" />
+
+                    <!-- After "Use the last day of the month": where the day came from. -->
+                    <TextView
+                        android:id="@+id/edit_month_end_note"
+                        style="@style/ReadyShelf.PhotoNote"
+                        android:visibility="gone"
+                        tools:text="@string/form_month_end_note"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/edit_date_error"
+                        style="@style/ReadyShelf.FieldError"
+                        android:text="@string/error_date_required" />
+
+                    <!-- Right under the date, so it is hard to miss. It starts unticked. -->
+                    <CheckBox
+                        android:id="@+id/edit_date_confirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:minHeight="@dimen/touch_target"
+                        android:text="@string/form_date_confirm"
+                        android:textAppearance="?attr/textAppearanceBodyLarge" />
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_printed_date_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:hint="@string/form_printed_date"
+                    android:visibility="gone"
+                    app:helperText="@string/form_printed_date_helper"
+                    app:helperTextEnabled="true"
+                    tools:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_printed_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:maxLength="40" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Only for a month and year, such as 03/2027. The date it fills in stays unconfirmed. -->
+                <Button
+                    android:id="@+id/edit_use_month_end"
+                    style="@style/ReadyShelf.Button.Outlined"
+                    android:visibility="gone"
+                    tools:text="@string/form_use_month_end"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/edit_date_note"
+                    style="@style/ReadyShelf.PhotoNote"
+                    android:visibility="gone"
+                    tools:text="@string/scan_note_date"
+                    tools:visibility="visible" />
+
+                <!-- "Date needs review", with the reason. Status is in words, not only color. -->
+                <TextView
+                    android:id="@+id/edit_date_review"
+                    style="@style/ReadyShelf.Notice"
+                    android:accessibilityLiveRegion="polite"
+                    android:visibility="gone"
+                    tools:text="@string/date_review_unconfirmed"
+                    tools:visibility="visible" />
+
+                <!-- Opens "What is printed?" above. It is gone once that is open. -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/edit_date_kind_show"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/form_date_kind_show" />
+
+                <!-- Since 2026-10-22 (the student's choice) the form has no food section: no food
+                     class, food type, or condition answers. Older batches keep theirs. -->
+            </LinearLayout>
+
+            <!-- The review. Nothing is saved until "Confirm and save" (in the bar at the bottom) or
+                 "Save and add another". -->
+            <LinearLayout
+                android:id="@+id/edit_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    style="@style/ReadyShelf.SectionHeading"
+                    android:layout_marginTop="0dp"
+                    android:accessibilityHeading="true"
+                    android:text="@string/form_review_heading"
+                    tools:targetApi="28" />
+
+                <TextView
+                    android:id="@+id/edit_review_text"
+                    style="@style/ReadyShelf.Body"
+                    tools:text="This batch will be added:\n• Product: Canned beans — Low sodium · 15 oz · unit: cans" />
+
+                <TextView
+                    android:id="@+id/edit_review_kit"
+                    style="@style/ReadyShelf.Notice.Warning"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:visibility="gone"
+                    tools:text="Canned beans in Earthquake kit: 6 cans before, 4 cans after. Replacement may be needed."
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/edit_review_error"
+                    style="@style/ReadyShelf.Notice.Error"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:accessibilityLiveRegion="polite"
+                    android:visibility="gone"
+                    tools:text="@string/error_batch_changed"
+                    tools:visibility="visible" />
+
+                <!-- The review's other buttons. "Confirm and save" is the main one, in the bar at
+                     the bottom. -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:orientation="vertical">
+
+                    <!-- Only when adding a new batch: saves, then opens an empty form that keeps
+                         the category and location. -->
+                    <Button
+                        android:id="@+id/edit_review_another"
+                        style="@style/ReadyShelf.Button.Tonal"
+                        android:text="@string/form_review_another" />
+
+                    <Button
+                        android:id="@+id/edit_review_back"
+                        style="@style/ReadyShelf.Button.Outlined"
+                        android:text="@string/form_review_back" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- The main button, always in view, however far the form scrolls (since 2026-10-19, the
+         student's choice): "Review and save" on the form, "Confirm and save" on the review.
+         BatchEditActivity shows one of them. -->
+    <LinearLayout
+        android:id="@+id/bottom_actions"
+        style="@style/ReadyShelf.BottomBar">
+
+        <Button
+            android:id="@+id/edit_save"
+            style="@style/ReadyShelf.BottomBarButton"
+            android:text="@string/form_review_button" />
+
+        <Button
+            android:id="@+id/edit_review_confirm"
+            style="@style/ReadyShelf.BottomBarButton"
+            android:text="@string/form_review_confirm"
+            android:visibility="gone" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Review swap: both moves, why the replacement qualifies, and what stays in each place.
+     Nothing changes until "Confirm swap". -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.swap.SwapReviewActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationContentDescription="@string/navigate_back"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:title="@string/title_swap_review" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/swap_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/screen_padding">
+
+            <!-- "Not available yet", "no longer proposed", or the rules' error. -->
+            <TextView
+                android:id="@+id/swap_message"
+                style="@style/ReadyShelf.Notice"
+                android:layout_marginTop="0dp"
+                android:accessibilityLiveRegion="polite"
+                android:visibility="gone"
+                tools:text="@string/swap_stale"
+                tools:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/swap_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/swap_name"
+                    style="@style/ReadyShelf.Body"
+                    android:accessibilityHeading="true"
+                    android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                    tools:targetApi="28"
+                    tools:text="Canned beans" />
+
+                <TextView
+                    android:id="@+id/swap_product_details"
+                    style="@style/ReadyShelf.Body"
+                    tools:text="Low sodium · 15 oz · unit: cans" />
+
+                <TextView
+                    android:id="@+id/swap_sample"
+                    style="@style/ReadyShelf.SampleTag"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/swap_each_way"
+                    style="@style/ReadyShelf.Body"
+                    android:layout_marginTop="@dimen/space_small"
+                    tools:text="Amount that moves each way: 3 cans" />
+
+                <!-- ===== The two moves ===== -->
+                <TextView
+                    style="@style/ReadyShelf.SectionHeading"
+                    android:accessibilityHeading="true"
+                    android:text="@string/swap_moves_heading"
+                    tools:targetApi="28" />
+
+                <!-- The swap picture, as on Home's card. TalkBack reads the two full sentences:
+                     "Move to pantry for review: …" and "Into … in its place: …". -->
+                <include
+                    layout="@layout/view_swap_diagram"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/ReadyShelf.Notice"
+                    android:text="@string/swap_for_review_note" />
+
+                <!-- ===== Why the replacement qualifies ===== -->
+                <TextView
+                    style="@style/ReadyShelf.SectionHeading"
+                    android:accessibilityHeading="true"
+                    android:text="@string/swap_why_heading"
+                    tools:targetApi="28" />
+
+                <TextView
+                    style="@style/ReadyShelf.Body"
+                    android:text="@string/swap_why_summary" />
+
+                <!-- A safety sentence: it always stays in view. -->
+                <TextView
+                    style="@style/ReadyShelf.Body"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:text="@string/swap_why_planning" />
+
+                <!-- "More about this" shows every rule with the Settings numbers, and what the
+                     household recorded (SwapReviewActivity, MoreText). -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/swap_why_more_toggle"
+                    style="@style/ReadyShelf.MoreToggle" />
+
+                <LinearLayout
+                    android:id="@+id/swap_why_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/swap_why_rules"
+                        style="@style/ReadyShelf.Body"
+                        tools:text="@string/swap_why_rules" />
+
+                    <TextView
+                        style="@style/ReadyShelf.FieldLabel"
+                        android:text="@string/swap_facts_heading" />
+
+                    <TextView
+                        android:id="@+id/swap_facts"
+                        style="@style/ReadyShelf.Body"
+                        tools:text="• Today: 11 Oct 2026\n• Kit batch: Best by: 20 Oct 2026, in Earthquake kit." />
+                </LinearLayout>
+
+                <!-- ===== After the swap ===== -->
+                <TextView
+                    style="@style/ReadyShelf.SectionHeading"
+                    android:accessibilityHeading="true"
+                    android:text="@string/swap_after_heading"
+                    tools:targetApi="28" />
+
+                <!-- The product's total in each place, before and after the swap. TalkBack reads
+                     one sentence per place instead of the cells, for example "Granola bars in
+                     Earthquake kit: 6 bars before, 6 bars after." "More about this" below gives
+                     the details. -->
+                <TableLayout
+                    android:id="@+id/swap_totals"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_panel"
+                    android:importantForAccessibility="yes"
+                    android:padding="@dimen/space_medium"
+                    android:shrinkColumns="0"
+                    android:stretchColumns="1,2">
+
+                    <TableRow android:importantForAccessibility="noHideDescendants">
+
+                        <TextView
+                            android:layout_marginEnd="12dp"
+                            android:text="@string/swap_totals_place"
+                            android:textAppearance="?attr/textAppearanceLabelLarge"
+                            android:textColor="?attr/colorOnSurfaceVariant" />
+
+                        <TextView
+                            android:layout_marginEnd="12dp"
+                            android:text="@string/swap_totals_before"
+                            android:textAppearance="?attr/textAppearanceLabelLarge"
+                            android:textColor="?attr/colorOnSurfaceVariant" />
+
+                        <TextView
+                            android:text="@string/swap_totals_after"
+                            android:textAppearance="?attr/textAppearanceLabelLarge"
+                            android:textColor="?attr/colorOnSurfaceVariant" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_marginTop="@dimen/space_small"
+                        android:importantForAccessibility="noHideDescendants">
+
+                        <TextView
+                            android:id="@+id/swap_totals_kit_place"
+                            android:layout_marginEnd="12dp"
+                            android:textAppearance="?attr/textAppearanceTitleSmall"
+                            tools:text="Earthquake kit" />
+
+                        <TextView
+                            android:id="@+id/swap_totals_kit_before"
+                            android:layout_marginEnd="12dp"
+                            android:textAppearance="?attr/textAppearanceBodyLarge"
+                            tools:text="6 bars" />
+
+                        <TextView
+                            android:id="@+id/swap_totals_kit_after"
+                            android:textAppearance="?attr/textAppearanceBodyLarge"
+                            tools:text="6 bars" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_marginTop="@dimen/space_small"
+                        android:importantForAccessibility="noHideDescendants">
+
+                        <TextView
+                            android:id="@+id/swap_totals_pantry_place"
+                            android:layout_marginEnd="12dp"
+                            android:textAppearance="?attr/textAppearanceTitleSmall"
+                            tools:text="Pantry" />
+
+                        <TextView
+                            android:id="@+id/swap_totals_pantry_before"
+                            android:layout_marginEnd="12dp"
+                            android:textAppearance="?attr/textAppearanceBodyLarge"
+                            tools:text="9 bars" />
+
+                        <TextView
+                            android:id="@+id/swap_totals_pantry_after"
+                            android:textAppearance="?attr/textAppearanceBodyLarge"
+                            tools:text="9 bars" />
+                    </TableRow>
+                </TableLayout>
+
+                <!-- "More about this" shows, for each place, what stays, leaves, and arrives
+                     (SwapReviewActivity, MoreText). The "for review" note above stays in view. -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/swap_after_more_toggle"
+                    style="@style/ReadyShelf.MoreToggle" />
+
+                <LinearLayout
+                    android:id="@+id/swap_after_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/swap_after_kit"
+                        style="@style/ReadyShelf.Body"
+                        tools:text="In Earthquake kit:\n• Stays: 2 cans (Best by: 20 Oct 2026)." />
+
+                    <TextView
+                        android:id="@+id/swap_after_pantry"
+                        style="@style/ReadyShelf.Body"
+                        android:layout_marginTop="@dimen/space_medium"
+                        tools:text="In Pantry:\n• Stays: 7 cans (Best by: 1 Jun 2027)." />
+
+                    <TextView
+                        android:id="@+id/swap_after_new_batch"
+                        style="@style/ReadyShelf.Body"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:text="@string/swap_after_new_batch"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/ReadyShelf.Notice"
+                    android:layout_marginTop="@dimen/space_large"
+                    android:text="@string/swap_confirm_note" />
+            </LinearLayout>
+
+            <!-- "Nothing was moved, because...": a polite live region, read when it appears. -->
+            <TextView
+                android:id="@+id/swap_result"
+                style="@style/ReadyShelf.Notice.Error"
+                android:accessibilityLiveRegion="polite"
+                android:visibility="gone"
+                tools:text="@string/swap_error_batch_changed"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/swap_back"
+                style="@style/ReadyShelf.Button.Outlined"
+                android:layout_marginTop="@dimen/space_large"
+                android:text="@string/stock_back" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- "Confirm swap", always in view (since 2026-10-19, the student's choice). The bar is shown
+         only while the swap can be confirmed (SwapReviewActivity). -->
+    <LinearLayout
+        android:id="@+id/bottom_actions"
+        style="@style/ReadyShelf.BottomBar"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <Button
+            android:id="@+id/swap_confirm"
+            style="@style/ReadyShelf.BottomBarButton"
+            android:text="@string/swap_confirm" />
+    </LinearLayout>
+</LinearLayout>

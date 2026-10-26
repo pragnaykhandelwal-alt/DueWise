@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Shared looks for the screens. Text sizes come from Material 3 text appearances,
+         which use sp, so text grows with the phone's font size setting.
+         Colors come from the theme (?attr/...), so light and dark mode both stay readable. -->
+
+    <!-- Empty parent for the "ReadyShelf.Something" names below. -->
+    <style name="ReadyShelf" />
+
+    <!-- A section title. Layouts also set android:accessibilityHeading on it. -->
+    <style name="ReadyShelf.SectionHeading">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/space_large</item>
+        <item name="android:layout_marginBottom">@dimen/space_small</item>
+        <item name="android:textAppearance">?attr/textAppearanceTitleLarge</item>
+    </style>
+
+    <!-- Normal reading text: 16sp -->
+    <style name="ReadyShelf.Body">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodyLarge</item>
+    </style>
+
+    <!-- A visible label above a drop-down list -->
+    <style name="ReadyShelf.FieldLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/space_medium</item>
+        <item name="android:textAppearance">?attr/textAppearanceLabelLarge</item>
+    </style>
+
+    <!-- An error message right under a field that has no error line of its own (a drop-down
+         list or a group of choices). The words say what is wrong, not only the color.
+         A polite live region: TalkBack reads the message when it appears. -->
+    <style name="ReadyShelf.FieldError">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:textColor">?attr/colorError</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodyMedium</item>
+        <item name="android:accessibilityLiveRegion">polite</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <!-- One answer in a group of choices (RadioButton), with a full-size touch target -->
+    <style name="ReadyShelf.Choice" parent="Widget.Material3.CompoundButton.RadioButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/touch_target</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodyLarge</item>
+    </style>
+
+    <!-- A drop-down list (Spinner) with a full-size touch target -->
+    <style name="ReadyShelf.Spinner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/touch_target</item>
+    </style>
+
+    <!-- A boxed note: banners, "not available yet", and empty lists. Warnings and errors have
+         their own looks (below), so an error never looks like a plain note. Boxes whose kind
+         changes while the screen is open get their look in code (NoticeLook). -->
+    <style name="ReadyShelf.Notice">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/space_small</item>
+        <item name="android:padding">@dimen/space_medium</item>
+        <item name="android:background">@drawable/bg_notice</item>
+        <item name="android:textColor">?attr/colorOnSecondaryContainer</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodyLarge</item>
+    </style>
+
+    <!-- A warning, for example "Replacement may be needed": pale brass with a dark brass warning
+         sign (gold until 2026-10-23). The words say it, so color is not the only sign. -->
+    <style name="ReadyShelf.Notice.Warning">
+        <item name="android:background">@drawable/bg_notice_warning</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:drawablePadding">@dimen/notice_icon_padding</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="drawableStartCompat">@drawable/ic_warning</item>
+        <item name="drawableTint">@color/brass_dark</item>
+    </style>
+
+    <!-- An error, for example "Not saved: …": red with an error sign. The
+         words say it, so color is not the only sign. -->
+    <style name="ReadyShelf.Notice.Error">
+        <item name="android:background">@drawable/bg_notice_error</item>
+        <item name="android:textColor">?attr/colorOnErrorContainer</item>
+        <item name="android:drawablePadding">@dimen/notice_icon_padding</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="drawableStartCompat">@drawable/ic_error</item>
+        <item name="drawableTint">?attr/colorOnErrorContainer</item>
+    </style>
+
+    <!-- "More about this": shows or hides a longer explanation right below it (MoreText). Since
+         2026-10-23 (B1) in the text color, with a gray arrow, instead of the main button color. -->
+    <style name="ReadyShelf.MoreToggle" parent="Widget.Material3.Button.TextButton.Icon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:minHeight">@dimen/touch_target</item>
+        <item name="android:text">@string/more_show</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="icon">@drawable/ic_expand_more</item>
+        <item name="iconGravity">start</item>
+        <item name="iconTint">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <!-- The "Sample item" tag. The text says it, so color is not the only sign. -->
+    <style name="ReadyShelf.SampleTag">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:paddingHorizontal">@dimen/space_small</item>
+        <item name="android:paddingVertical">2dp</item>
+        <item name="android:background">@drawable/bg_tag</item>
+        <item name="android:textColor">?attr/colorOnTertiaryContainer</item>
+        <item name="android:textAppearance">?attr/textAppearanceLabelLarge</item>
+        <item name="android:text">@string/sample_tag</item>
+    </style>
+
+    <!-- The "Archived" tag: an outline and the archive icon (set in code, the size of the
+         text), so it doesn't look like "Sample item". The text says it, so color is not the
+         only sign. -->
+    <style name="ReadyShelf.ArchivedTag">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:paddingHorizontal">@dimen/space_small</item>
+        <item name="android:paddingVertical">2dp</item>
+        <item name="android:drawablePadding">6dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/bg_tag_outlined</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:textAppearance">?attr/textAppearanceLabelLarge</item>
+        <item name="android:text">@string/archived_tag</item>
+    </style>
+
+    <!-- A place in the swap picture: its icon (set in code, the size of the text) and its name,
+         in a rounded box. Two of them share a row, and long names wrap inside the box. -->
+    <style name="ReadyShelf.PlacePill">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingHorizontal">12dp</item>
+        <item name="android:paddingVertical">@dimen/space_small</item>
+        <item name="android:drawablePadding">6dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/bg_place_pill</item>
+        <item name="android:textColor">?attr/colorOnSecondaryContainer</item>
+        <item name="android:textAppearance">?attr/textAppearanceTitleSmall</item>
+    </style>
+
+    <!-- A batch's status: icon, word, and colors, all set by StatusLook. The word carries the
+         meaning; the icon and the color only help. -->
+    <style name="ReadyShelf.StatusLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/space_small</item>
+        <item name="android:paddingHorizontal">@dimen/space_small</item>
+        <item name="android:paddingVertical">4dp</item>
+        <item name="android:drawablePadding">6dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAppearance">?attr/textAppearanceLabelLarge</item>
+    </style>
+
+    <!-- The "Sample data" strip right under the toolbar of every screen while the separate
+         sample data is open (ScreenSetup): its words, and "Close sample data" under them. It
+         doesn't scroll away. The words say it, so color is not the only sign. -->
+    <style name="ReadyShelf.SampleDataBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingHorizontal">@dimen/screen_padding</item>
+        <item name="android:paddingTop">@dimen/space_small</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:background">?attr/colorTertiaryContainer</item>
+    </style>
+
+    <!-- The strip's words. -->
+    <style name="ReadyShelf.SampleDataLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?attr/colorOnTertiaryContainer</item>
+        <item name="android:textAppearance">?attr/textAppearanceLabelLarge</item>
+        <item name="android:text">@string/sample_data_label</item>
+    </style>
+
+    <!-- "Close sample data" under the strip's words, at the end (Material's banner layout), in
+         the strip's own colors. Material buttons are at least 48dp tall. -->
+    <style name="ReadyShelf.SampleDataClose" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:text">@string/settings_close_sample</item>
+        <item name="android:textColor">?attr/colorOnTertiaryContainer</item>
+        <item name="strokeColor">?attr/colorOnTertiaryContainer</item>
+    </style>
+
+    <!-- A note under a field that a label photo filled in. The words say it, not only the color. -->
+    <style name="ReadyShelf.PhotoNote">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:paddingHorizontal">@dimen/space_small</item>
+        <item name="android:paddingVertical">4dp</item>
+        <item name="android:background">?attr/colorSecondaryContainer</item>
+        <item name="android:textColor">?attr/colorOnSecondaryContainer</item>
+        <item name="android:textAppearance">?attr/textAppearanceLabelLarge</item>
+    </style>
+
+    <!-- The bar at the bottom of a long screen that holds its one main button (Add batch,
+         Change stock, Review swap; since 2026-10-19, the student's choice). It stays in view while
+         the screen above it scrolls, so the main action is always one tap away. A line at its top
+         separates it from the screen (bg_bottom_bar). The screen's own padding keeps it above the
+         navigation bar and the keyboard (ScreenSetup). -->
+    <style name="ReadyShelf.BottomBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingHorizontal">@dimen/screen_padding</item>
+        <item name="android:paddingVertical">@dimen/space_small</item>
+        <item name="android:background">@drawable/bg_bottom_bar</item>
+    </style>
+
+    <!-- The main button in a ReadyShelf.BottomBar: full width, filled. -->
+    <style name="ReadyShelf.BottomBarButton" parent="Widget.Material3.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- A full-width button. Material buttons are at least 48dp tall. -->
+    <style name="ReadyShelf.Button" parent="Widget.Material3.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/space_small</item>
+    </style>
+
+    <style name="ReadyShelf.Button.Tonal" parent="Widget.Material3.Button.TonalButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/space_small</item>
+    </style>
+
+    <style name="ReadyShelf.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/space_small</item>
+    </style>
+
+    <!-- A fact row on Batch details, for example "Quantity: 6 bars". BatchDetailsActivity puts an
+         icon before the words (StatusLook.setStartIcon); the words alone say everything. -->
+    <style name="ReadyShelf.DetailRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingVertical">6dp</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodyLarge</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <!-- A panel's title, with an icon before it (Settings' cards). -->
+    <style name="ReadyShelf.PanelTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/space_small</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAppearance">?attr/textAppearanceTitleLarge</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="drawableTint">?attr/colorPrimary</item>
+    </style>
+
+    <!-- A panel: a quiet rounded card that groups one task (Batch details, Settings). -->
+    <style name="ReadyShelf.Panel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/space_medium</item>
+        <item name="android:background">@drawable/bg_panel</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/space_medium</item>
+    </style>
+
+    <!-- "Add batch", the floating button on Home and Inventory (themes.xml): light brass with dark
+         words since 2026-10-23 (B1), so it stands out from the pine buttons. A press darkens it a
+         little; Material's own press color would be pine. From 2026-10-22 it was charcoal, the main
+         button color. -->
+    <style name="ReadyShelf.AddButton" parent="Widget.Material3.ExtendedFloatingActionButton.Icon.Primary">
+        <item name="backgroundTint">@color/brass_light</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="iconTint">?attr/colorOnSurface</item>
+        <item name="rippleColor">?attr/colorControlHighlight</item>
+    </style>
+
+    <!-- Every screen's top bar (themes.xml makes it the toolbars' style): pine with white words and
+         icons, like Home's (since 2026-10-23, the student's choice). Its theme overlay makes a
+         press on the back arrow or home icon show a light ripple. ScreenSetup lets it reach up
+         behind the status bar, whose icons are light, and out to the screen's sides. The back
+         arrow and the home icon are centered under the status bar, like the title: placed at the
+         top (the toolbar's own way), they ended up too low once the bar grew by the status bar's
+         height. -->
+    <style name="ReadyShelf.TopBar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@color/pine</item>
+        <item name="buttonGravity">center_vertical</item>
+        <item name="titleTextColor">?attr/colorOnPrimary</item>
+        <item name="navigationIconTint">?attr/colorOnPrimary</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.ReadyShelf.TopBar</item>
+    </style>
+
+    <!-- A card (themes.xml makes it every outlined card): white with a thin light gray border, like
+         the swap card in B1 (since 2026-10-23). Material's own outlined card has the page's color. -->
+    <style name="ReadyShelf.Card" parent="Widget.Material3.CardView.Outlined">
+        <item name="cardBackgroundColor">?attr/colorSurfaceContainerLowest</item>
+    </style>
+</resources>

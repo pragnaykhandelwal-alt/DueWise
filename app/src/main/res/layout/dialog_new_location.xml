@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The "New location" dialog. It scrolls, so it still fits with large text. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/space_large"
+        android:paddingTop="@dimen/space_small">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/new_location_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/new_location_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_location_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:maxLength="40" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/ReadyShelf.FieldLabel"
+            android:text="@string/new_location_type" />
+
+        <TextView
+            style="@style/ReadyShelf.Body"
+            android:text="@string/new_location_type_help" />
+
+        <RadioGroup
+            android:id="@+id/new_location_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/new_location_type_other">
+
+            <RadioButton
+                android:id="@+id/new_location_type_pantry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target"
+                android:text="@string/location_type_pantry" />
+
+            <RadioButton
+                android:id="@+id/new_location_type_emergency_kit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target"
+                android:text="@string/location_type_emergency_kit" />
+
+            <RadioButton
+                android:id="@+id/new_location_type_first_aid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target"
+                android:text="@string/location_type_first_aid" />
+
+            <RadioButton
+                android:id="@+id/new_location_type_other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target"
+                android:text="@string/location_type_other" />
+        </RadioGroup>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

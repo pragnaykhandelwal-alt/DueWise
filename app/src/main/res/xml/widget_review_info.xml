@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The home-screen widget "Review list" (widget/ReviewWidgetProvider).
+     Size: 3 x 1 cells (minWidth and minHeight for Android 11 and older, targetCell* for Android 12
+     and newer), and it can be resized, for example to 2 rows for large text.
+     updatePeriodMillis: Android refreshes it about every 6 hours. This wakes the phone for a
+     moment about 4 times a day. Saved changes to the records refresh it right away anyway.
+     home_screen only: it is never shown on the lock screen. -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:description="@string/widget_description"
+    android:initialLayout="@layout/widget_review"
+    android:minWidth="180dp"
+    android:minHeight="40dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="40dp"
+    android:previewLayout="@layout/widget_review"
+    android:resizeMode="horizontal|vertical"
+    android:targetCellWidth="3"
+    android:targetCellHeight="1"
+    android:updatePeriodMillis="21600000"
+    android:widgetCategory="home_screen"
+    tools:targetApi="31" />

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The app's colors since 2026-10-23: the student's design B1, "Brass highlights". The student
+         sent a mock of Home with its exact colors and chose them for the whole app. Warm neutral
+         grays (blue a little lower than red and green, never green: "no sage or green-tinted
+         grays", the student's rule), the logo kit's pine for the main buttons and Home's band, and
+         brass highlights. Colors that B1 doesn't name follow the same grays (AI-USE.md). The app is
+         always light (themes.xml). Every text color keeps WCAG AA contrast or better on its
+         background (TEST-RESULTS.md 40). On 2026-10-22 the app was "Graphite light" (pure grays),
+         and before that always dark, with a blue scheme. -->
+
+    <!-- Pine and brass are the logo kit's own colors and names; the light and dark brass and the
+         cream are B1's. Pine is for the main buttons, every screen's top bar, the bands under it
+         (Home's tiles, a status list's header), and the logo, never for a status. -->
+    <color name="pine">#FF1F3B34</color>
+    <color name="brass">#FFB8914F</color>
+    <color name="brass_light">#FFCFA866</color>
+    <color name="brass_dark">#FF82622A</color>
+    <color name="cream">#FFF6EFE2</color>
+
+    <!-- Material 3's color roles (themes.xml). -->
+    <color name="md_theme_primary">@color/pine</color>
+    <color name="md_theme_onPrimary">#FFFFFFFF</color>
+    <color name="md_theme_primaryContainer">@color/cream</color>
+    <color name="md_theme_onPrimaryContainer">@color/pine</color>
+    <color name="md_theme_inversePrimary">@color/brass_light</color>
+    <!-- Only Android's date picker uses the secondary color (its header, the chosen day, and its
+         buttons), so it is pine like the main buttons. -->
+    <color name="md_theme_secondary">@color/pine</color>
+    <color name="md_theme_onSecondary">#FFFFFFFF</color>
+    <color name="md_theme_secondaryContainer">#FFEBEBEA</color>
+    <color name="md_theme_onSecondaryContainer">#FF1D1D1C</color>
+    <!-- The sample tags and the "Sample data" strip: lilac (hue 326, tone 82, chroma 32), so they
+         never look like a status. B1 doesn't show them, so they are unchanged. -->
+    <color name="md_theme_tertiary">#FF77517C</color>
+    <color name="md_theme_onTertiary">#FFFFFFFF</color>
+    <color name="md_theme_tertiaryContainer">#FFECBDEF</color>
+    <color name="md_theme_onTertiaryContainer">#FF2E0D35</color>
+    <!-- B1's red, so the app has one red. The error boxes keep their pale red. -->
+    <color name="md_theme_error">#FFB23A2B</color>
+    <color name="md_theme_onError">#FFFFFFFF</color>
+    <color name="md_theme_errorContainer">#FFFFDAD6</color>
+    <color name="md_theme_onErrorContainer">#FF410002</color>
+    <color name="md_theme_background">#FFF5F5F4</color>
+    <color name="md_theme_onBackground">#FF1D1D1C</color>
+    <color name="md_theme_surface">#FFF5F5F4</color>
+    <color name="md_theme_onSurface">#FF1D1D1C</color>
+    <color name="md_theme_surfaceVariant">#FFE1E1DF</color>
+    <color name="md_theme_onSurfaceVariant">#FF5F5F5C</color>
+    <color name="md_theme_outline">#FF858582</color>
+    <color name="md_theme_outlineVariant">#FFDCDCDA</color>
+    <color name="md_theme_inverseSurface">#FF30302E</color>
+    <color name="md_theme_inverseOnSurface">#FFF5F5F4</color>
+    <color name="md_theme_surfaceDim">#FFDCDCDA</color>
+    <color name="md_theme_surfaceBright">#FFF5F5F4</color>
+    <color name="md_theme_surfaceContainerLowest">#FFFFFFFF</color>
+    <color name="md_theme_surfaceContainerLow">#FFF0F0EF</color>
+    <color name="md_theme_surfaceContainer">#FFEBEBEA</color>
+    <color name="md_theme_surfaceContainerHigh">#FFE6E6E5</color>
+    <color name="md_theme_surfaceContainerHighest">#FFE1E1DF</color>
+
+    <!-- Selected text: light brass at 40%. Material's own highlight would be pine, a sage gray
+         over white. -->
+    <color name="text_highlight">#66CFA866</color>
+
+    <!-- A press on a pine top bar's back arrow or home icon: white at 20%, so it shows on the
+         pine (Material's own press color is black at 12%, which doesn't). -->
+    <color name="top_bar_ripple">#33FFFFFF</color>
+
+    <!-- The statuses (StatusLook), in B1's colors. For each status: the label's color, which is
+         also the circle behind the icon on Home's tile; the color of the words and the icon on it,
+         which is also the tile's icon; and the "accent", the tile's number. Date passed is red with
+         white words, Date is today brass, and Near date cream with dark brass words, so the most
+         urgent is the strongest. Date needs review keeps its pale blue (it has no tile). Later date
+         uses the theme's quiet gray. Words on a label: 4.9:1 or more; numbers on a white tile:
+         5.6:1 or more. Until 2026-10-23 every label was a pale color with dark words. -->
+    <color name="status_passed_container">#FFB23A2B</color>
+    <color name="status_on_passed_container">#FFFFFFFF</color>
+    <color name="status_passed_accent">#FFB23A2B</color>
+    <color name="status_today_container">@color/brass</color>
+    <color name="status_on_today_container">@color/md_theme_onSurface</color>
+    <color name="status_today_accent">@color/brass_dark</color>
+    <color name="status_near_container">@color/cream</color>
+    <color name="status_on_near_container">@color/brass_dark</color>
+    <color name="status_near_accent">@color/md_theme_onSurface</color>
+    <color name="status_review_container">#FFD8E2FF</color>
+    <color name="status_on_review_container">#FF001A41</color>
+    <color name="status_review_accent">#FF2B5DAC</color>
+
+    <!-- Warning boxes (ReadyShelf.Notice.Warning, NoticeLook): a pale brass, B1's cream and light
+         brass mixed 3:1, so a warning stands out from a gray note and from the page. Dark words
+         (12.6:1) and a dark brass sign (4.2:1). Until 2026-10-23 warnings used Near date's gold. -->
+    <color name="notice_warning_container">#FFECDDC3</color>
+
+    <!-- The home-screen widget. The home screen draws it without the app's theme, so its
+         colors are fixed. It stays dark (the student's choice on 2026-10-19), in dark grays, with
+         strong contrast. -->
+    <color name="widget_background">#FF303030</color>
+    <color name="widget_text">#FFE8E8E8</color>
+
+    <!-- The app icon's background: "Porcelain" from the DueWise logo kit. -->
+    <color name="ic_launcher_background">#FFEEF2F0</color>
+</resources>

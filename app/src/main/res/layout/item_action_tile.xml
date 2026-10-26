@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A shortcut tile in Home's grid: Inventory, Purchase list, Settings, or Add batch
+     (HomeActivity.makeActionTile sets the id, the icon, the arrow, and the word). Add batch is one
+     since 2026-10-23, in place of a floating button; until 2026-10-22 "Show the review list" was
+     one too. It has the same size and parts as a status
+     tile (item_status_tile.xml), so every icon on Home sits in the same two columns (the student's
+     request on 2026-10-19): an icon in a circle, an arrow at the top end that shows what a tap
+     does (">" opens another screen), and the word. These tiles are not statuses, so their icon is an
+     outline instead of a solid icon in a status color, and the statuses stand out. Since
+     2026-10-23 (B1) the icon is pine in a cream circle (the theme's primary container); on
+     2026-10-22 it was gray in a white circle, and before that black in a light gray circle that
+     almost matched the tile. HomeActivity gives the whole tile one spoken label: its word. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:background="@drawable/bg_tile"
+    android:focusable="true"
+    android:importantForAccessibility="yes"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <!-- The top part is exactly as tall as a status tile's, at every text size: the invisible
+         stand-in below takes the place of a status tile's count (same text size). So the icons
+         and the words line up from tile to tile, and a taller row's extra height goes to the
+         bottom of every tile. -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:importantForAccessibility="noHideDescendants">
+
+        <!-- Empty, so one line of a status tile's count text: it only sets the height. -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceHeadlineMedium"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/action_tile_icon"
+            android:layout_width="@dimen/category_icon_size"
+            android:layout_height="@dimen/category_icon_size"
+            android:layout_gravity="start|center_vertical"
+            android:background="@drawable/bg_circle"
+            android:backgroundTint="?attr/colorPrimaryContainer"
+            android:padding="@dimen/category_icon_padding"
+            app:tint="?attr/colorOnPrimaryContainer"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_inventory" />
+
+        <ImageView
+            android:id="@+id/action_tile_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end|center_vertical"
+            app:tint="?attr/colorOutline"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_chevron_right" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/action_tile_word"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_small"
+        android:importantForAccessibility="no"
+        android:textAppearance="?attr/textAppearanceTitleSmall"
+        android:textColor="?attr/colorOnSurface"
+        tools:text="@string/home_inventory" />
+</LinearLayout>

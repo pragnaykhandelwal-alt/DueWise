@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ids that code gives to views it makes. HomeActivity gives them to the tiles of Home's grid,
+     so screen dumps and tests can find them by name. -->
+<resources>
+    <item name="home_inventory" type="id" />
+    <item name="home_purchase_list" type="id" />
+    <item name="home_settings" type="id" />
+    <item name="home_add_batch" type="id" />
+</resources>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One item on the purchase list. It is only a note: it never changes recorded stock. -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="?attr/materialCardViewOutlinedStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/space_small">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/space_medium">
+
+        <TextView
+            android:id="@+id/purchase_entry_name"
+            style="@style/ReadyShelf.Body"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            tools:text="Canned beans" />
+
+        <TextView
+            android:id="@+id/purchase_entry_details"
+            style="@style/ReadyShelf.Body"
+            tools:text="Low sodium · 15 oz · unit: cans" />
+
+        <TextView
+            android:id="@+id/purchase_entry_amount"
+            style="@style/ReadyShelf.Body"
+            android:layout_marginTop="@dimen/space_small"
+            tools:text="To buy: 3 cans for Earthquake kit" />
+
+        <TextView
+            android:id="@+id/purchase_entry_suggested"
+            style="@style/ReadyShelf.Body"
+            android:visibility="gone"
+            tools:text="Needed now: 5 cans"
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/purchase_entry_use"
+            style="@style/ReadyShelf.Button.Outlined"
+            android:visibility="gone"
+            tools:text="Change to 5 cans"
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/purchase_entry_bought"
+            style="@style/ReadyShelf.Button.Tonal"
+            android:layout_marginTop="@dimen/space_medium"
+            android:text="@string/purchase_entry_bought" />
+
+        <Button
+            android:id="@+id/purchase_entry_remove"
+            style="@style/ReadyShelf.Button.Outlined"
+            android:text="@string/purchase_entry_remove" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

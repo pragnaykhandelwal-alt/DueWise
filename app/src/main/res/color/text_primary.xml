@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Text that sets no color of its own (themes.xml): the scheme's onSurface gray, dimmed when
+     turned off, the same way as Material's m3_default_color_primary_text. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:alpha="0.38" android:color="@color/md_theme_onSurface"
+        android:state_enabled="false" />
+    <item android:color="@color/md_theme_onSurface" />
+</selector>

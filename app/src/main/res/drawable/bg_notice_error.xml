@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- An error box (ReadyShelf.Notice.Error): rounded, in the theme's dark error red. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="@dimen/tile_corner_radius" />
+    <solid android:color="?attr/colorErrorContainer" />
+</shape>

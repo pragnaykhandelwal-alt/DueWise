@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The review on the Label photos screen (both orientations): the text read on each photo and
+     the possible dates. The text is not selectable, so it can't go to the clipboard. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/photo_review_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:visibility="gone"
+    tools:visibility="visible">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/screen_padding">
+
+        <TextView
+            style="@style/ReadyShelf.SectionHeading"
+            android:layout_marginTop="0dp"
+            android:accessibilityHeading="true"
+            android:text="@string/photo_review_heading"
+            tools:targetApi="28" />
+
+        <TextView
+            style="@style/ReadyShelf.Body"
+            android:text="@string/photo_review_intro" />
+
+        <!-- "Reading the photos…" or a notice. A polite live region for TalkBack. -->
+        <TextView
+            android:id="@+id/photo_review_status"
+            style="@style/ReadyShelf.Notice"
+            android:accessibilityLiveRegion="polite"
+            android:visibility="gone"
+            tools:text="@string/photo_reading"
+            tools:visibility="visible" />
+
+        <!-- A moving bar while the photos are read (LabelPhotosActivity), so the wait is visible.
+             The words above already say it, so TalkBack skips the bar. -->
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/photo_review_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_small"
+            android:importantForAccessibility="no"
+            android:indeterminate="true"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <TextView
+            style="@style/ReadyShelf.SectionHeading"
+            android:accessibilityHeading="true"
+            android:text="@string/photo_product_heading"
+            tools:targetApi="28" />
+
+        <!-- Not a live region: the text read on a photo can be long, and TalkBack already hears
+             the status above and the possible dates below. -->
+        <TextView
+            android:id="@+id/photo_product_text"
+            style="@style/ReadyShelf.Body"
+            tools:text="@string/photo_text_reading" />
+
+        <TextView
+            android:id="@+id/photo_product_note"
+            style="@style/ReadyShelf.Notice"
+            android:text="@string/photo_product_note" />
+
+        <Button
+            android:id="@+id/photo_retake_product"
+            style="@style/ReadyShelf.Button.Outlined"
+            android:text="@string/photo_retake_product" />
+
+        <TextView
+            style="@style/ReadyShelf.SectionHeading"
+            android:accessibilityHeading="true"
+            android:text="@string/photo_date_heading"
+            tools:targetApi="28" />
+
+        <TextView
+            android:id="@+id/photo_date_text"
+            style="@style/ReadyShelf.Body"
+            tools:text="@string/photo_text_reading" />
+
+        <Button
+            android:id="@+id/photo_retake_date"
+            style="@style/ReadyShelf.Button.Outlined"
+            android:text="@string/photo_retake_date" />
+
+        <TextView
+            style="@style/ReadyShelf.SectionHeading"
+            android:accessibilityHeading="true"
+            android:text="@string/photo_dates_heading"
+            tools:targetApi="28" />
+
+        <TextView
+            android:id="@+id/photo_dates_message"
+            style="@style/ReadyShelf.Notice"
+            android:accessibilityLiveRegion="polite"
+            tools:text="@string/photo_dates_not_connected" />
+
+        <!-- One button per possible date; added in LabelPhotosActivity. -->
+        <LinearLayout
+            android:id="@+id/photo_date_choices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <Button
+            android:id="@+id/photo_continue_without_date"
+            style="@style/ReadyShelf.Button.Tonal"
+            android:layout_marginTop="@dimen/space_large"
+            android:text="@string/photo_continue_without_date" />
+
+        <Button
+            android:id="@+id/photo_cancel"
+            style="@style/ReadyShelf.Button.Outlined"
+            android:text="@string/photo_cancel" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

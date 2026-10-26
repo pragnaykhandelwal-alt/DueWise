@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A warning box (ReadyShelf.Notice.Warning): rounded, in pale brass (until 2026-10-23, the gold
+     of the statuses). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="@dimen/tile_corner_radius" />
+    <solid android:color="@color/notice_warning_container" />
+</shape>

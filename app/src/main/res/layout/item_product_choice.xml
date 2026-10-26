@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One product in the product list of the batch form. The text wraps instead of being cut off,
+     so the variant, package size, and unit are always visible before choosing. -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/touch_target"
+    android:paddingHorizontal="@dimen/space_medium"
+    android:paddingVertical="12dp"
+    android:textAppearance="?attr/textAppearanceBodyLarge"
+    tools:text="Canned beans — Low sodium · 15 oz · unit: cans" />

@@ -1,0 +1,39 @@
+pluginManagement {
+    repositories {
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
+        // Maven Central (mavenCentral()) answers "HTTP 429 Too Many Requests" on the
+        // NVIDIA network, so we use Google's copy of Maven Central instead.
+        // It must come before gradlePluginPortal(), which forwards Maven Central files
+        // to the blocked server. On another network, mavenCentral() also works.
+        // See TOOLCHAIN.md, "Network note".
+        maven { url = "https://maven-central.storage-download.googleapis.com/maven2/" }
+        gradlePluginPortal()
+    }
+}
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        // Google's copy of Maven Central (see the note in pluginManagement above).
+        maven { url = "https://maven-central.storage-download.googleapis.com/maven2/" }
+        // Tesseract4Android (on-device text recognition) is published only on JitPack.
+        // exclusiveContent means Gradle asks JitPack for this one group and nothing else.
+        // See TOOLCHAIN.md, "Label scanning (OCR)".
+        exclusiveContent {
+            forRepository { maven { url = "https://jitpack.io" } }
+            filter { includeGroup("cz.adaptech.tesseract4android") }
+        }
+    }
+}
+
+rootProject.name = "ReadyShelf"
+include ':app'
